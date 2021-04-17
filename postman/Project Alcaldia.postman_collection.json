@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "a37c61d2-6742-4e6c-b752-26002ec0f6ae",
+		"name": "Project Alcaldia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Pruebas",
+			"item": [
+				{
+					"name": "starting-screen",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://proyectosoft.walksoft.com.co/api/starting-screen",
+							"protocol": "http",
+							"host": [
+								"proyectosoft",
+								"walksoft",
+								"com",
+								"co"
+							],
+							"path": [
+								"api",
+								"starting-screen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login-image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://proyectosoft.walksoft.com.co/api/login-image",
+							"protocol": "http",
+							"host": [
+								"proyectosoft",
+								"walksoft",
+								"com",
+								"co"
+							],
+							"path": [
+								"api",
+								"login-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Development plan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://proyectosoft.walksoft.com.co/api/development-plan",
+							"protocol": "http",
+							"host": [
+								"proyectosoft",
+								"walksoft",
+								"com",
+								"co"
+							],
+							"path": [
+								"api",
+								"development-plan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "featured-projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://proyectosoft.walksoft.com.co/api/featured-projects",
+							"protocol": "http",
+							"host": [
+								"proyectosoft",
+								"walksoft",
+								"com",
+								"co"
+							],
+							"path": [
+								"api",
+								"featured-projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://proyectosoft.walksoft.com.co/api/projects?offices=Secretaria",
+							"protocol": "http",
+							"host": [
+								"proyectosoft",
+								"walksoft",
+								"com",
+								"co"
+							],
+							"path": [
+								"api",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "offices",
+									"value": "Secretaria"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "faqs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://proyectosoft.walksoft.com.co/api/faqs",
+							"protocol": "http",
+							"host": [
+								"proyectosoft",
+								"walksoft",
+								"com",
+								"co"
+							],
+							"path": [
+								"api",
+								"faqs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://proyectosoft.walksoft.com.co/api/users?token=$2y$10$4jAdl1lea7psc.2qrXV0FelwlfN9b2gxIaATCkf2Yk/yLMqtSN3Qa&provider=facebook&name=Ruben Garcia&email=ruben@gmail.com&photo=https://imagen.com/image.png",
+							"protocol": "http",
+							"host": [
+								"proyectosoft",
+								"walksoft",
+								"com",
+								"co"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "$2y$10$4jAdl1lea7psc.2qrXV0FelwlfN9b2gxIaATCkf2Yk/yLMqtSN3Qa"
+								},
+								{
+									"key": "provider",
+									"value": "facebook"
+								},
+								{
+									"key": "name",
+									"value": "Ruben Garcia"
+								},
+								{
+									"key": "email",
+									"value": "ruben@gmail.com"
+								},
+								{
+									"key": "photo",
+									"value": "https://imagen.com/image.png"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

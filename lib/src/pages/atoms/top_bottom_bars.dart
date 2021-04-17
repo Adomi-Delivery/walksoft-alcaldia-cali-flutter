@@ -106,7 +106,12 @@ Container createButtom(String rutaDestino, SvgPicture icono) {
     height: 70,
     child: Column(
       children: [
-        IconButton(icon: icono, onPressed: () {}),
+        IconButton(
+            icon: icono,
+            onPressed: () {
+              //TODO: Agregar ruta cuando se hace
+              // Navigator.pushReplacementNamed(context, routeName)
+            }),
         Text(
           "INICIO",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

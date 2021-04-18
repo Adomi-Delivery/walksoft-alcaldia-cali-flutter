@@ -165,10 +165,16 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
               ),
             ),
           ),
-          Container(
-            child: Center(
-              child: Text(
-                'Documentos',
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, 'DocumentosProyecto',
+                  arguments: project.name);
+            },
+            child: Container(
+              child: Center(
+                child: Text(
+                  'Documentos',
+                ),
               ),
             ),
           ),

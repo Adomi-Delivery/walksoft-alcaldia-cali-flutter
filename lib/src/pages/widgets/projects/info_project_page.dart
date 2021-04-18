@@ -198,7 +198,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           crearTexto(
               "Costos", "\$" + project.costs + " es la inversión proyectada"),
           SizedBox(height: 20),
-          crearTexto("Componentes", project.components),
+          crearTextoLista("Componentes", project.components),
           SizedBox(height: 20),
           crearLineaDeTiempo("Linea de tiempo"),
           SizedBox(height: 20),
@@ -208,6 +208,49 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
         ],
       ),
     );
+  }
+
+  Widget crearTextoLista(String titulo, List<String> info) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(width: double.infinity),
+          Text(
+            titulo,
+            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 10),
+          Row(
+            children: <Widget>[
+              SizedBox(width: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: getListaInfo(info),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> getListaInfo(List<String> info) {
+    List<Widget> lista = [];
+
+    for (var item in info) {
+      lista.add(Container(
+        width: 300,
+        child: Text(
+          '- ' + item,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+        ),
+      ));
+      lista.add(SizedBox(height: 5));
+    }
+
+    return lista;
   }
 
   Widget crearLineaDeTiempo(String titulo) {

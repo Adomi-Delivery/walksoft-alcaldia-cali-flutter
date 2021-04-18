@@ -1,4 +1,6 @@
-# walksoft_alcaldia_cali_flutter
+# Walksoft Alcaldia Cali - Flutter
+
+[![Flutter CI](https://github.com/Adomi-Delivery/walksoft-alcaldia-cali-flutter/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Adomi-Delivery/walksoft-alcaldia-cali-flutter/actions/workflows/main.yml)
 
 A new Flutter project.
 

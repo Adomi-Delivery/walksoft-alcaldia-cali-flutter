@@ -71,7 +71,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           }
         },
       ),
-      bottomNavigationBar: createBottomAppBar(1),
+      bottomNavigationBar: createBottomAppBar(1, context),
     );
   }
 

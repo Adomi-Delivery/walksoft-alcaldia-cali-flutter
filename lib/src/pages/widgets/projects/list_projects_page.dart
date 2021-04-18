@@ -90,7 +90,7 @@ class _ListProjectPageState extends State<ListProjectPage> {
           }
         },
       ),
-      bottomNavigationBar: createBottomAppBar(1),
+      bottomNavigationBar: createBottomAppBar(1, context),
     );
   }
 

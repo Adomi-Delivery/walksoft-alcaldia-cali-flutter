@@ -155,8 +155,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, 'CalendarioProyecto',
-                  arguments: project);
+              Navigator.pushNamed(context, 'MediaProyecto');
             },
             child: Container(
               child: Center(
@@ -173,10 +172,16 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
               ),
             ),
           ),
-          Container(
-            child: Center(
-              child: Text(
-                'Agenda',
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, 'CalendarioProyecto',
+                  arguments: project);
+            },
+            child: Container(
+              child: Center(
+                child: Text(
+                  'Agenda',
+                ),
               ),
             ),
           ),

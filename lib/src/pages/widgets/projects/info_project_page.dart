@@ -153,10 +153,16 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
               ),
             ),
           ),
-          Container(
-            child: Center(
-              child: Text(
-                'Media',
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, 'CalendarioProyecto',
+                  arguments: project);
+            },
+            child: Container(
+              child: Center(
+                child: Text(
+                  'Media',
+                ),
               ),
             ),
           ),

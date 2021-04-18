@@ -2,6 +2,76 @@ import 'package:flutter/material.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 
+Widget customCardTimeLine(String titulo, String date, String detalles,
+    List<Widget> documentos, List<Widget> media, String notas, String autor) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+        color: blanco,
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(3, 3))
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              width: double.infinity,
+            ),
+            Text(
+              titulo,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            SizedBox(height: 7),
+            Text(date),
+            SizedBox(height: 7),
+            Text('Detalles:'),
+            Text(detalles),
+            SizedBox(height: 15),
+            Text('Documentos:'),
+            //TODO: REVISAR
+            // Row(
+            //   children: [
+            //     documentos[0],
+            //     documentos[1],
+            //   ],
+            // ),
+            SizedBox(height: 20),
+            Text('Media: '),
+            // Row(
+            //   children: <Widget>[
+            //     media[0],
+            //     media[0],
+            //   ],
+            // ),
+            SizedBox(height: 20),
+            Text('Notas:'),
+            Text(notas),
+            SizedBox(height: 15),
+            Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(autor),
+                Text(date),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
 Widget createCustomCardProject(
     BuildContext context, int index, Size size, Project project) {
   return Container(
@@ -109,7 +179,8 @@ Widget botonFinal(BuildContext context, Project project) {
     children: <Widget>[
       TextButton(
         onPressed: () {
-          Navigator.pushNamed(context, 'InfoProyecto');
+          Navigator.pushNamed(context, 'InfoProyecto',
+              arguments: project.idProject);
         },
         child: Container(
           decoration: BoxDecoration(

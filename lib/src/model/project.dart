@@ -20,11 +20,8 @@ class Project {
     startDate = json["start_date"].toString();
     endDate = json["end_date"].toString();
     urlImage = json["cover_image"].toString();
-
-    //TODO: FALTA ENDPOINTS
-    // components = json["components"];
-    // location = json["direction"].toString();
-
+    location = json["address"].toString();
+    components = json["components"].toString();
     String temp = json["status"].toString();
 
     if (temp == "Activo") {

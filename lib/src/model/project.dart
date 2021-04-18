@@ -4,7 +4,7 @@ class Project {
   String description;
   String location;
   String costs;
-  String components;
+  List<String> components = [];
   String startDate;
   String endDate;
   bool status;
@@ -21,13 +21,19 @@ class Project {
     endDate = json["end_date"].toString();
     urlImage = json["cover_image"].toString();
     location = json["address"].toString();
-    components = json["components"].toString();
     String temp = json["status"].toString();
 
     if (temp == "Activo") {
       status = true;
     } else {
       status = false;
+    }
+
+    List<dynamic> temp2 = json["components"];
+
+    for (var item in temp2) {
+      print(item);
+      components.add(item);
     }
   }
 }

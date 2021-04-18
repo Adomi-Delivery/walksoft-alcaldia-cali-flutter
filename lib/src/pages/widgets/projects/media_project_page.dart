@@ -47,20 +47,25 @@ class MediaProjectPage extends StatelessWidget {
           Container(
             height: 100,
             child: Center(
-              child: Container(
-                width: 200,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: verdePrincipal,
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                ),
-                child: Center(
-                  child: Text(
-                    'Cerrar',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  width: 200,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: verdePrincipal,
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Cerrar',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),
@@ -80,27 +85,9 @@ class MediaProjectPage extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
-                  Expanded(
-                    child: Container(
-                      child: Center(
-                        child: Text('Foto1'),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Center(
-                        child: Text('Foto3'),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Center(
-                        child: Text('Foto5'),
-                      ),
-                    ),
-                  ),
+                  crearFoto('assets/imagen1.png'),
+                  crearFoto('assets/imagen3.png'),
+                  crearFoto('assets/imagen5.png'),
                 ],
               ),
             ),
@@ -111,33 +98,36 @@ class MediaProjectPage extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
-                  Expanded(
-                    child: Container(
-                      child: Center(
-                        child: Text('Foto2'),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Center(
-                        child: Text('Foto4'),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Center(
-                        child: Text('Foto6'),
-                      ),
-                    ),
-                  ),
+                  crearFoto('assets/imagen2.png'),
+                  crearFoto('assets/imagen4.png'),
+                  crearFoto('assets/imagen6.png'),
                 ],
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget crearFoto(String path) {
+    return Expanded(
+      child: Container(
+        child: Center(
+          child: Container(
+            width: 160,
+            height: 130,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(30),
+              ),
+              image: DecorationImage(
+                image: ExactAssetImage(path),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

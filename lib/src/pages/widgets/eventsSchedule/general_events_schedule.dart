@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/schedule.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/calendar_widget.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/schedule_widget.dart';
@@ -7,25 +6,23 @@ import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.d
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class ScheduleProjectPage extends StatefulWidget {
+class GeneralEventsSchedule extends StatefulWidget {
   @override
-  _ScheduleProjectPageState createState() => _ScheduleProjectPageState();
+  _GeneralEventsScheduleState createState() => _GeneralEventsScheduleState();
 }
 
-class _ScheduleProjectPageState extends State<ScheduleProjectPage> {
-  Project _project;
-
+class _GeneralEventsScheduleState extends State<GeneralEventsSchedule> {
   List<Schedule> _scheduleList = [];
 
   @override
   Widget build(BuildContext context) {
     _scheduleList = [];
-    _project = ModalRoute.of(context).settings.arguments;
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: createAppBar(),
       body: FutureBuilder(
-        future: this.getScheduleProject(_project.idProject),
+        future: this.getScheduleProject(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
@@ -51,22 +48,13 @@ class _ScheduleProjectPageState extends State<ScheduleProjectPage> {
                             Container(
                               width: size.width * 0.5,
                               child: Text(
-                                _project.name,
+                                'Agenda General de Eventos',
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
                                 ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Icon(
-                                Icons.close,
-                                size: 30,
                               ),
                             ),
                           ],
@@ -94,11 +82,12 @@ class _ScheduleProjectPageState extends State<ScheduleProjectPage> {
           }
         },
       ),
+      bottomNavigationBar: createBottomAppBar(2, context),
     );
   }
 
-  Future getScheduleProject(String id) async {
-    String uri = 'http://proyectosoft.walksoft.com.co/api/schedule?project=$id';
+  Future getScheduleProject() async {
+    String uri = 'http://proyectosoft.walksoft.com.co/api/schedule';
 
     final data = await http.get(Uri.parse(uri));
     final decodedData = json.decode(data.body);

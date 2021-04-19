@@ -4,10 +4,9 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/Models/splash.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/Contstants.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 
 class SplashPage extends StatefulWidget {
-  static List<Splash> infoSplash = [];
   static String imgUrl;
 
   @override
@@ -15,14 +14,15 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  String rutaImgCambio;
+  static List<Splash> infoSplash = [];
 
-  bool visible = true;
   @override
   void initState() {
     super.initState();
     // _loadInfo();
-    //   // Timer(Duration(seconds: 3), () {});
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushNamed(context, 'LoginPage');
+    });
   }
 
   @override
@@ -30,53 +30,36 @@ class _SplashPageState extends State<SplashPage> {
     // _loadInfo();
 
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Center(
-            child: Center(
-              child: Image.network(
-                  'https://files.slack.com/files-tmb/T01D52RSH2N-F01UN7YT03V-146ce3175e/image_720.png',
-                  height: size.height * 0.40),
-            ),
+      backgroundColor: fondo,
+      body: Center(
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 20),
+          // height: size.height * 1,
+          child: Image.asset(
+            'assets/splash.png',
+            height: size.height * 0.9,
+            fit: BoxFit.cover,
           ),
-        ],
+        ),
       ),
     );
   }
 
-  Future<void> _loadInfo() async {
-    var client = http.Client();
-    const headers = {
-      // 'Content-Type': 'application/json',
-      'Accept': '*/*',
-      'Accept-Encoding': 'gzip, deflate, br',
-      'Connection': 'keep-alive'
-    };
+  Future<Map<String, dynamic>> _loadInfo() async {
+    // var client = http.Client();
+    final back = '\\';
 
-    //  String url = Constants.url +
-    //         "starting-screen" ;
-
-    //     uriResponse = await Dio().get(url);
-
-    //     List listJsonDecode = jsonDecode(uriResponse.toString());
-    //     SplashPage.infoSplash = listJsonDecode
-    //         .map((mapUser) => new Splash.fromJson(mapUser))
-    //         .toList();
-
-    var uriResponse = await client
-        .get(Uri.parse(Constants.url + 'starting-screen'), headers: headers);
-    print(uriResponse.body);
-
-    Map<String, dynamic> map = jsonDecode(uriResponse.body);
-    List listJsonDecodeInfo = map[''];
-    print(uriResponse.statusCode);
-
-    SplashPage.infoSplash = listJsonDecodeInfo
-        .map((mapInfo) => new Splash.fromJson(mapInfo))
+    Uri url = Uri.parse(Constants.url + 'starting-screen');
+    var response = await http.get(url);
+    final tmp = response.body.toString().replaceAll(back, "");
+    List listJsonDecode =
+        jsonDecode(response.body.toString().replaceAll(back, ""));
+    infoSplash = listJsonDecode
+        .map((mapProjects) => new Splash.fromJson(mapProjects))
         .toList();
-    SplashPage.imgUrl = SplashPage.infoSplash[0].url;
-    print(SplashPage.infoSplash[0].url);
+    print(infoSplash[0].url);
+    // return response;
   }
 }

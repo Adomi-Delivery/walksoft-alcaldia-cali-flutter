@@ -15,6 +15,7 @@ dependencies:
     sdk: flutter
   http: ^0.13.1
   dio: ^4.0.0
+  carousel_slider: ^3.0.0
 
   cupertino_icons: ^1.0.2
   flutter_svg:
@@ -34,7 +35,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
-  #   - images/a_dot_burr.jpeg
+    - data/featured_projects.json
   #   - images/a_dot_ham.jpeg
 
   

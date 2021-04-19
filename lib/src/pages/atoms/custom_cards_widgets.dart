@@ -108,12 +108,12 @@ Widget configInformation(BuildContext context, Project project, Size size) {
       ),
       SizedBox(width: 10),
       Container(
-        width: size.width * 0.53,
+        width: size.width * 0.40,
         child: informacionCentral(project),
       ),
       SizedBox(width: 10),
       Container(
-        width: size.width * 0.15,
+        width: size.width * 0.20,
         child: botonFinal(context, project),
       ),
     ],

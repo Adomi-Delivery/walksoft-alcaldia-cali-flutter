@@ -17,7 +17,7 @@ AppBar createAppBar() {
             ],
           ),
         ),
-        SizedBox(width: 20),
+        SizedBox(width: 5),
         Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

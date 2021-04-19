@@ -19,7 +19,6 @@ class _DocumentsProjectPageState extends State<DocumentsProjectPage> {
       body: Column(
         children: <Widget>[
           Container(
-            height: 100,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
               child: Center(
@@ -88,13 +87,13 @@ class _DocumentsProjectPageState extends State<DocumentsProjectPage> {
 
   Widget crearDocumentos() {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(5),
       child: Column(
         children: <Widget>[
           Container(
             child: Container(
               width: 360,
-              height: 150,
+              height: 140,
               child: crearArchivo(
                   'Word', 'Acta de inicio', 'Actia de inicio proyecto'),
             ),
@@ -102,7 +101,7 @@ class _DocumentsProjectPageState extends State<DocumentsProjectPage> {
           Container(
             child: Container(
               width: 360,
-              height: 150,
+              height: 140,
               child: crearArchivo('Pdf', 'Ingorme de progreso',
                   'Formatos oficiales para ingreso de notas'),
             ),
@@ -110,7 +109,7 @@ class _DocumentsProjectPageState extends State<DocumentsProjectPage> {
           Container(
             child: Container(
               width: 360,
-              height: 150,
+              height: 140,
               child: crearArchivo('Excel', 'Plantillas de gestion',
                   'Formatos oficiales para ingresos de notas'),
             ),

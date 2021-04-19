@@ -88,8 +88,10 @@ class _GeneralEventsScheduleState extends State<GeneralEventsSchedule> {
 
   Future getScheduleProject() async {
     String uri = 'http://proyectosoft.walksoft.com.co/api/schedule';
+    String token = '';
 
-    final data = await http.get(Uri.parse(uri));
+    final data =
+        await http.get(Uri.parse(uri), headers: {'Authorization': token});
     final decodedData = json.decode(data.body);
 
     for (var item in decodedData) {

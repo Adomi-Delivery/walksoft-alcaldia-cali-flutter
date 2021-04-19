@@ -1,14 +1,10 @@
 import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/Models/featured_projects.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/slider.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/providers/data_provider.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:walksoft_alcaldia_cali_flutter/src/utils/customPainter/quarter_circle.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -31,7 +27,7 @@ class _HomePageState extends State<HomePage> {
               height: size.height * 0.02,
             ),
           ),
-          _createDevelopmentPlan(),
+          _createDevelopmentPlan(context),
           SafeArea(
             child: SizedBox(
               height: size.height * 0.02,
@@ -63,7 +59,7 @@ class _HomePageState extends State<HomePage> {
               height: size.height * 0.02,
             ),
           ),
-          _createCardProjects(),
+          _createCardProjects(context),
           SafeArea(
             child: SizedBox(
               height: size.height * 0.02,
@@ -111,7 +107,7 @@ class _HomePageState extends State<HomePage> {
               height: size.height * 0.01,
             ),
           ),
-          createCardNews(),
+          createCardNews(context),
           SafeArea(
             child: SizedBox(
               height: size.height * 0.01,
@@ -122,7 +118,7 @@ class _HomePageState extends State<HomePage> {
               height: size.height * 0.01,
             ),
           ),
-          createCardNews(),
+          createCardNews(context),
           SafeArea(
             child: SizedBox(
               height: size.height * 0.01,
@@ -133,13 +129,13 @@ class _HomePageState extends State<HomePage> {
               height: size.height * 0.01,
             ),
           ),
-          createCardNews(),
+          createCardNews(context),
           SafeArea(
             child: SizedBox(
               height: size.height * 0.06,
             ),
           ),
-          _createGallery(),
+          _createGallery(context),
           SafeArea(
             child: SizedBox(
               height: size.height * 0.01,
@@ -147,11 +143,11 @@ class _HomePageState extends State<HomePage> {
           ),
         ]),
       ),
-      bottomNavigationBar: createBottomAppBar(0),
+      bottomNavigationBar: createBottomAppBar(0, context),
     );
   }
 
-  _createDevelopmentPlan() {
+  _createDevelopmentPlan(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Stack(
       children: [
@@ -247,7 +243,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  _createCardProjects() {
+  _createCardProjects(BuildContext context) {
     // dataProvider.loadDataLocal().then((dataProjects) {
     //   this.listCardProjects = dataProjects;
     // });
@@ -318,7 +314,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  createCardNews() {
+  createCardNews(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(5.0),
@@ -377,7 +373,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _createGallery() {
+  _createGallery(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Column(
       children: [

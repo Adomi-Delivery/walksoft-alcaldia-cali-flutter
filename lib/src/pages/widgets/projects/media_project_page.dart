@@ -39,11 +39,12 @@ class MediaProjectPage extends StatelessWidget {
             ),
           ),
           Expanded(
-              child: Container(
-            child: Center(
-              child: crearFotosMedio(),
+            child: Container(
+              child: Center(
+                child: crearFotosMedio(),
+              ),
             ),
-          )),
+          ),
           Container(
             height: 100,
             child: Center(

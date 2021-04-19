@@ -99,8 +99,10 @@ class _ScheduleProjectPageState extends State<ScheduleProjectPage> {
 
   Future getScheduleProject(String id) async {
     String uri = 'http://proyectosoft.walksoft.com.co/api/schedule?project=$id';
+    String token = '';
 
-    final data = await http.get(Uri.parse(uri));
+    final data =
+        await http.get(Uri.parse(uri), headers: {'Authorization': token});
     final decodedData = json.decode(data.body);
 
     for (var item in decodedData) {

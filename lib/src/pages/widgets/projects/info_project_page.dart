@@ -17,11 +17,12 @@ class InfoProjectPage extends StatefulWidget {
 class _InfoProjectPageState extends State<InfoProjectPage> {
   String _idProject;
   Project project;
+  Size size;
 
   @override
   Widget build(BuildContext context) {
     _idProject = ModalRoute.of(context).settings.arguments;
-    Size size = MediaQuery.of(context).size;
+    size = MediaQuery.of(context).size;
 
     cargarProyecto(_idProject);
 
@@ -77,10 +78,12 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
 
   Future cargarProyecto(String id) async {
     String uri = 'http://proyectosoft.walksoft.com.co/api/projects/$id';
+    String token = '';
 
-    final data = await http.get(Uri.parse(uri));
+    final data =
+        await http.get(Uri.parse(uri), headers: {'Authorization': token});
     final decodedData = json.decode(data.body);
-
+    print(data.request);
     project = Project.fromJsonMap(decodedData);
   }
 
@@ -377,25 +380,26 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           ),
           Container(
-            width: 160,
-            height: 40,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(15)),
               color: verdeProyectoSuave,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.sms_rounded,
-                  color: blanco,
-                ),
-                SizedBox(width: 10),
-                Text(
-                  'Encuesta',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ],
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.sms_rounded,
+                    color: blanco,
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    'Encuesta',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -444,7 +448,16 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           ),
           SizedBox(height: 10),
           Row(
-            children: <Widget>[SizedBox(width: 20), Text(textoPoner)],
+            children: <Widget>[
+              SizedBox(width: 20),
+              Container(
+                width: size.width * 0.8,
+                child: Text(
+                  textoPoner,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )
+            ],
           ),
         ],
       ),

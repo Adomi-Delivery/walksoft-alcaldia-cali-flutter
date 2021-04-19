@@ -96,8 +96,11 @@ class _ListProjectPageState extends State<ListProjectPage> {
 
   Future chargeProjects(BuildContext context) async {
     String uri = 'http://proyectosoft.walksoft.com.co/api/projects?offices=1';
+    String token = '';
 
-    final data = await http.get(Uri.parse(uri));
+    final data =
+        await http.get(Uri.parse(uri), headers: {'Authorization': token});
+    print(data.request);
     final decodedData = json.decode(data.body);
 
     for (var item in decodedData) {

@@ -2,9 +2,9 @@
     package="com.example.walksoft_alcaldia_cali_flutter">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
+        android:usesCleartextTraffic="true"
         android:label="walksoft_alcaldia_cali_flutter"
-        android:icon="@mipmap/launcher_icon"
-        android:usesCleartextTraffic="true">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

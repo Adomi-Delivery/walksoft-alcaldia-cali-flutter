@@ -17,7 +17,7 @@ AppBar createAppBar() {
             ],
           ),
         ),
-        SizedBox(width: 50),
+        SizedBox(width: 5),
         Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,7 +37,7 @@ AppBar createAppBar() {
   );
 }
 
-BottomAppBar createBottomAppBar(int numPantalla) {
+BottomAppBar createBottomAppBar(int numPantalla, BuildContext context) {
   List<Color> listaColores = [blanco, blanco, blanco, blanco, blanco];
   listaColores[numPantalla] = verdeIconosBottom;
 
@@ -56,44 +56,54 @@ BottomAppBar createBottomAppBar(int numPantalla) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           createButtom(
-            'InicioPage',
+            'ListadoProyectos',
             SvgPicture.asset(
               'assets/home.svg',
               fit: BoxFit.contain,
               color: listaColores[0],
             ),
+            'INICIO',
+            context,
           ),
           createButtom(
-            'InicioPage',
+            'ListadoProyectos',
             SvgPicture.asset(
               'assets/app.svg',
               fit: BoxFit.contain,
               color: listaColores[1],
             ),
+            'PROYECTOS',
+            context,
           ),
           createButtom(
-            'InicioPage',
+            'CalendarioGeneral',
             SvgPicture.asset(
               'assets/calendar.svg',
               fit: BoxFit.contain,
               color: listaColores[2],
             ),
+            'AGENDA',
+            context,
           ),
           createButtom(
-            'InicioPage',
+            'ListadoProyectos',
             SvgPicture.asset(
               'assets/location.svg',
               fit: BoxFit.contain,
               color: listaColores[3],
             ),
+            'MAPA',
+            context,
           ),
           createButtom(
-            'InicioPage',
+            'ListadoProyectos',
             SvgPicture.asset(
               'assets/question.svg',
               fit: BoxFit.contain,
               color: listaColores[4],
             ),
+            'PREGUNTAS',
+            context,
           ),
         ],
       ),
@@ -101,7 +111,8 @@ BottomAppBar createBottomAppBar(int numPantalla) {
   );
 }
 
-Container createButtom(String rutaDestino, SvgPicture icono) {
+Container createButtom(
+    String rutaDestino, SvgPicture icono, String texto, BuildContext context) {
   return Container(
     height: 70,
     child: Column(
@@ -109,11 +120,10 @@ Container createButtom(String rutaDestino, SvgPicture icono) {
         IconButton(
             icon: icono,
             onPressed: () {
-              //TODO: Agregar ruta cuando se hace
-              // Navigator.pushReplacementNamed(context, routeName)
+              Navigator.pushReplacementNamed(context, rutaDestino);
             }),
         Text(
-          "INICIO",
+          texto,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         )
       ],

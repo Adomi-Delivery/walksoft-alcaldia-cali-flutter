@@ -26,3 +26,7 @@ const headers = {
   'Accept-Encoding': 'gzip, deflate, br',
   'Connection': 'keep-alive'
 };
+const azulBoton = Color(0xFF3A467B);
+const grizSuave = Color(0xFFF3F5FA);
+const amarillo = Color(0xFFDADA00);
+const verdeProyectoSuave = Color(0xFF7AAB22);

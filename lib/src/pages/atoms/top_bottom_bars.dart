@@ -118,10 +118,11 @@ Container createButtom(
     child: Column(
       children: [
         IconButton(
-            icon: icono,
-            onPressed: () {
-              Navigator.pushReplacementNamed(context, rutaDestino);
-            }),
+          icon: icono,
+          onPressed: () {
+            Navigator.popAndPushNamed(context, rutaDestino);
+          },
+        ),
         Text(
           texto,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

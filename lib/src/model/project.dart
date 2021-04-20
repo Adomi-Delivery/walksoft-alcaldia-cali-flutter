@@ -9,6 +9,8 @@ class Project {
   String endDate;
   bool status;
   String urlImage;
+  String latitude;
+  String longitude;
 
   Project();
 
@@ -21,6 +23,9 @@ class Project {
     endDate = json["end_date"].toString();
     urlImage = json["cover_image"].toString();
     location = json["address"].toString();
+    latitude = json["latitude"].toString();
+    longitude = json["longitude"].toString();
+
     String temp = json["status"].toString();
 
     if (temp == "Activo") {

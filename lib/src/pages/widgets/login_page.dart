@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, 'HomePage');
+                Navigator.popAndPushNamed(context, 'HomePage');
               },
               child: Container(
                 height: 50,

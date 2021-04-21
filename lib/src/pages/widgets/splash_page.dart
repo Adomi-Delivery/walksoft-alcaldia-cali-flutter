@@ -21,7 +21,7 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
     _loadInfo();
     Timer(Duration(seconds: 3), () {
-      Navigator.popAndPushNamed(context, 'HomePage');
+      Navigator.popAndPushNamed(context, 'LoginPage');
     });
   }
 

@@ -22,6 +22,7 @@ dependencies:
   timeline_tile:
   table_calendar:
   url_launcher:
+  google_maps_flutter:
 
 dev_dependencies:
   flutter_test:

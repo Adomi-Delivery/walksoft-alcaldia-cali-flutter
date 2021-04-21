@@ -5,6 +5,8 @@
         android:usesCleartextTraffic="true"
         android:label="walksoft_alcaldia_cali_flutter"
         android:icon="@mipmap/launcher_icon">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBex8Qrwi17tt7GhO6cveg0YDw4LKyNV3E"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

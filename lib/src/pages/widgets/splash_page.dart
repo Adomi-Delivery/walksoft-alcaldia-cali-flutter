@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/Models/splash.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/splash.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 
 class SplashPage extends StatefulWidget {
@@ -19,8 +19,8 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    // _loadInfo();
-    Timer(Duration(seconds: 3), () {
+    _loadInfo();
+    Timer(Duration(seconds: 5), () {
       Navigator.popAndPushNamed(context, 'LoginPage');
     });
   }
@@ -29,37 +29,48 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     // _loadInfo();
 
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: fondo,
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 20),
-          // height: size.height * 1,
-          child: Image.asset(
-            'assets/splash.png',
-            height: size.height * 0.9,
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
+      body: Center(child: _createSplash()),
     );
   }
 
-  Future<Map<String, dynamic>> _loadInfo() async {
-    // var client = http.Client();
+  _loadInfo() async {
     final back = '\\';
 
     Uri url = Uri.parse(Constants.url + 'starting-screen');
     var response = await http.get(url);
+    Timer(Duration(seconds: 3), () {});
     final tmp = response.body.toString().replaceAll(back, "");
-    List listJsonDecode =
-        jsonDecode(response.body.toString().replaceAll(back, ""));
-    infoSplash = listJsonDecode
-        .map((mapProjects) => new Splash.fromJson(mapProjects))
-        .toList();
-    print(infoSplash[0].url);
-    // return response;
+    String jsonComplete = "[" + tmp;
+    jsonComplete = jsonComplete + "]";
+    final decodedData = json.decode(jsonComplete);
+
+    Splash info = Splash.fromJson(decodedData[0]);
+    infoSplash.add(info);
+
+    setState(() {
+      _createSplash();
+    });
+  }
+
+  _createSplash() {
+    final size = MediaQuery.of(context).size;
+
+    if (infoSplash.length > 0) {
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        height: size.height * 0.9,
+        child: Image.network(
+          // 'assets/splash.png',
+
+          infoSplash[0].url,
+          // height: size.height * 0.9,
+          fit: BoxFit.cover,
+        ),
+      );
+    } else {
+      setState(() {});
+    }
   }
 }

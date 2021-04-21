@@ -266,52 +266,52 @@ class _HomePageState extends State<HomePage> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 5,
           children: List.generate(listCardProjects.length, (index) {
-            return Container(
-              height: size.height * 0.10,
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.circular(15),
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: <Color>[
-                      blanco,
-                      gris,
-                    ]),
-              ),
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      listCardProjects[index].name,
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: verdePrincipal,
-                          fontWeight: FontWeight.w700,
-                          fontStyle: FontStyle.italic),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: -50,
-                    right: -55,
-                    child: ClipOval(
-                      child: Image.network(
-                        listCardProjects[index].image,
-                        width: 170,
-                        height: 170,
-                        fit: BoxFit.cover,
+            return GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, 'InfoProyecto',
+                    arguments: listCardProjects[index].id.toString());
+              },
+              child: Container(
+                height: size.height * 0.10,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: <Color>[
+                        blanco,
+                        gris,
+                      ]),
+                ),
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        listCardProjects[index].name,
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: verdePrincipal,
+                            fontWeight: FontWeight.w700,
+                            fontStyle: FontStyle.italic),
                       ),
                     ),
-                  ),
-                  Positioned(
-                      bottom: 10,
-                      left: 10,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, 'InfoProyecto',
-                              arguments: listCardProjects[index].id.toString());
-                        },
+                    Positioned(
+                      bottom: -50,
+                      right: -55,
+                      child: ClipOval(
+                        child: Image.network(
+                          listCardProjects[index].image,
+                          width: 170,
+                          height: 170,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                        bottom: 10,
+                        left: 10,
                         child: CircleAvatar(
                           radius: 15,
                           backgroundColor: verdePrincipal,
@@ -320,9 +320,9 @@ class _HomePageState extends State<HomePage> {
                             size: 15,
                             color: blanco,
                           ),
-                        ),
-                      ))
-                ],
+                        ))
+                  ],
+                ),
               ),
             );
           })),

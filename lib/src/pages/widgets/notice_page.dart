@@ -56,35 +56,40 @@ class _NoticePageState extends State<NoticePage> {
 
   _createNotice(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Container(
-        child: Column(
-          children: [
-            ListTile(
-              title: Text(
-                'Llegaron las vacunas',
-                style: TextStyle(fontSize: 25),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Container(
+          child: Column(
+            children: [
+              ListTile(
+                title: Text(
+                  'Llegaron las vacunas',
+                  style: TextStyle(fontSize: 25),
+                ),
+                subtitle: Text('03 Marzo 2021, 02:30 PM'),
               ),
-              subtitle: Text('03 Marzo 2021, 02:30 PM'),
-            ),
-            Text(
-              textoPrueva,
-              textAlign: TextAlign.justify,
-              // style: TextStyle(),
-            ),
-            SizedBox(
-              height: size.height * 0.03,
-            ),
-            Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(15)),
-              child: Image.asset(
-                'assets/rectangle.png',
-                fit: BoxFit.contain,
+              Text(
+                textoPrueva,
+                textAlign: TextAlign.justify,
+                // style: TextStyle(),
               ),
-            ),
-          ],
+              SizedBox(
+                height: size.height * 0.03,
+              ),
+              Container(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                child: Image.asset(
+                  'assets/rectangle.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );

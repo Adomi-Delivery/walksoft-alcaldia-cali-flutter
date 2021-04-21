@@ -69,34 +69,39 @@ class _HomePageState extends State<HomePage> {
               height: size.height * 0.02,
             ),
           ),
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: verdePrincipal,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    'Ver todos los proyectos ',
-                    style: TextStyle(
-                      fontSize: 23,
-                      color: blanco,
-                      fontWeight: FontWeight.w700,
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, 'ListadoProyectos');
+            },
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: verdePrincipal,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Ver todos los proyectos ',
+                      style: TextStyle(
+                        fontSize: 23,
+                        color: blanco,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                  CircleAvatar(
-                    backgroundColor: blanco,
-                    child: Icon(
-                      Icons.arrow_forward_rounded,
-                      color: verdePrincipal,
-                    ),
-                  )
-                ],
+                    CircleAvatar(
+                      backgroundColor: blanco,
+                      child: Icon(
+                        Icons.arrow_forward_rounded,
+                        color: verdePrincipal,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -331,7 +336,7 @@ class _HomePageState extends State<HomePage> {
       child: GestureDetector(
         onTap: () {
           // Navigator.pushNamed(context, 'NoticePage');
-          Navigator.pushNamed(context, 'FaqsPage');
+          Navigator.pushNamed(context, 'NoticePage');
         },
         child: Container(
           height: size.height * 0.11,

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/timeline.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 
-Widget customCardTimeLine(String titulo, String date, String detalles,
-    List<Widget> documentos, List<Widget> media, String notas, String autor) {
+Widget customCardTimeLine(TimeLine t) {
+  String titulo = t.title;
+  String date = t.createdAt;
+  String detalles = t.details;
+  String notas = t.note;
+  String autor = t.user;
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     child: Container(

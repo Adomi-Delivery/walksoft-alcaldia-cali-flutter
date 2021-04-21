@@ -14,6 +14,8 @@ const amarilloGallery = Color(0xfffce95f);
 const naranjaGallery = Color(0xfff29c1f);
 const fondo = Color(0xeeebf5ec);
 const blancoFondo = Color(0xfff1f1f1);
+const String textoPrueva =
+    'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que ';
 
 //URL CONSTANTE API-REST
 class Constants {

@@ -96,7 +96,7 @@ BottomAppBar createBottomAppBar(int numPantalla, BuildContext context) {
             context,
           ),
           createButtom(
-            'ListadoProyectos',
+            'FaqsPage',
             SvgPicture.asset(
               'assets/question.svg',
               fit: BoxFit.contain,

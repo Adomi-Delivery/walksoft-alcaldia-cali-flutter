@@ -28,17 +28,17 @@ class Project {
 
     String temp = json["status"].toString();
 
-    if (temp == "Activo") {
+    if (temp == "1") {
       status = true;
     } else {
       status = false;
     }
 
     List<dynamic> temp2 = json["components"];
-
-    for (var item in temp2) {
-      print(item);
-      components.add(item);
+    if (temp2 != null) {
+      for (var item in temp2) {
+        components.add(item);
+      }
     }
   }
 }

@@ -307,7 +307,7 @@ class _HomePageState extends State<HomePage> {
                       child: GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, 'InfoProyecto',
-                              arguments: listCardProjects[index].id);
+                              arguments: listCardProjects[index].id.toString());
                         },
                         child: CircleAvatar(
                           radius: 15,

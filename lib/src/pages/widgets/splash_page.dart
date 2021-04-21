@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     _loadInfo();
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 5), () {
       Navigator.popAndPushNamed(context, 'LoginPage');
     });
   }
@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
     // _loadInfo();
 
     return Scaffold(
-      // backgroundColor: fondo,
+      backgroundColor: fondo,
       body: Center(child: _createSplash()),
     );
   }

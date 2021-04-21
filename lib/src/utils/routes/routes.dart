@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/eventsSchedule/general_events_schedule.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/faqs_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/maps/maps_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/home_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/login_page.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/notice_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/documents_project_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/info_project_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/list_projects_page.dart';
@@ -22,5 +24,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'Mapas': (context) => MapsPage(),
     'LoginPage': (context) => LoginPage(),
     'HomePage': (context) => HomePage(),
+    'NoticePage': (context) => NoticePage(),
+    'FaqsPage': (context) => FaqsPage(),
   };
 }

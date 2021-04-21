@@ -5,8 +5,6 @@ import 'package:walksoft_alcaldia_cali_flutter/src/model/developmentPlan.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/featured_projects.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/slider.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/info_project_page.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/list_projects_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 import 'package:http/http.dart' as http;
 

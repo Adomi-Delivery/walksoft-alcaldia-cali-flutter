@@ -56,7 +56,7 @@ BottomAppBar createBottomAppBar(int numPantalla, BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           createButtom(
-            'ListadoProyectos',
+            'HomePage',
             SvgPicture.asset(
               'assets/home.svg',
               fit: BoxFit.contain,
@@ -86,7 +86,7 @@ BottomAppBar createBottomAppBar(int numPantalla, BuildContext context) {
             context,
           ),
           createButtom(
-            'ListadoProyectos',
+            'Mapas',
             SvgPicture.asset(
               'assets/location.svg',
               fit: BoxFit.contain,
@@ -118,10 +118,11 @@ Container createButtom(
     child: Column(
       children: [
         IconButton(
-            icon: icono,
-            onPressed: () {
-              Navigator.pushReplacementNamed(context, rutaDestino);
-            }),
+          icon: icono,
+          onPressed: () {
+            Navigator.popAndPushNamed(context, rutaDestino);
+          },
+        ),
         Text(
           texto,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

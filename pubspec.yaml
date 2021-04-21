@@ -21,6 +21,7 @@ dependencies:
   flutter_svg:
   timeline_tile:
   table_calendar:
+  google_maps_flutter:
 
 dev_dependencies:
   flutter_test:

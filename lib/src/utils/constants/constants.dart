@@ -22,6 +22,8 @@ class Constants {
   static String url = 'http://proyectosoft.walksoft.com.co/api/';
 }
 
+const listaColores = [Colors.red, Colors.blue, Colors.green, Colors.cyan];
+
 const headers = {
   // 'Content-Type': 'application/json',
   'Accept': '*/*',

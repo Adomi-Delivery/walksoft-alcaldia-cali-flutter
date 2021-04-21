@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/file.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/timeline.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 
-Widget customCardTimeLine(TimeLine t) {
+Widget customCardTimeLine(TimeLine t, int index) {
   String titulo = t.title;
   String date = t.createdAt;
   String detalles = t.details;
   String notas = t.note;
   String autor = t.user;
+  List<File> listFiles = t.files;
 
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -44,21 +47,9 @@ Widget customCardTimeLine(TimeLine t) {
             Text(detalles),
             SizedBox(height: 15),
             Text('Documentos:'),
-            //TODO: REVISAR
-            // Row(
-            //   children: [
-            //     documentos[0],
-            //     documentos[1],
-            //   ],
-            // ),
-            SizedBox(height: 20),
-            Text('Media: '),
-            // Row(
-            //   children: <Widget>[
-            //     media[0],
-            //     media[0],
-            //   ],
-            // ),
+            Row(
+              children: generarListaDocumentos(t.files),
+            ),
             SizedBox(height: 20),
             Text('Notas:'),
             Text(notas),
@@ -76,6 +67,41 @@ Widget customCardTimeLine(TimeLine t) {
       ),
     ),
   );
+}
+
+List<Widget> generarListaDocumentos(List<File> lista) {
+  List<Widget> l = [SizedBox(width: 5)];
+  String path = "";
+
+  for (var item in lista) {
+    if (item.ext == "jpg") {
+      path = "assets/camera.png";
+    } else if (item.ext == "docx") {
+      path = "assets/word.png";
+    } else if (item.ext == "xlsx") {
+      path = "assets/excel.png";
+    }
+
+    l.add(GestureDetector(
+      onTap: () {
+        _launchURL(item.url);
+      },
+      child: Container(
+        height: 40,
+        width: 40,
+        child: Center(
+          child: Image.asset(path),
+        ),
+      ),
+    ));
+    l.add(SizedBox(width: 10));
+  }
+
+  return l;
+}
+
+_launchURL(String url) async {
+  await canLaunch(url) ? await launch(url) : throw 'No se puede abrir: $url';
 }
 
 Widget createCustomCardProject(

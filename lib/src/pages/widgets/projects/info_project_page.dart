@@ -283,12 +283,14 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           ),
           ListView.separated(
             separatorBuilder: (_, __) => SizedBox(
-              height: 30,
+              height: 0,
             ),
+            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: project.timeline.length,
             itemBuilder: (context, index) {
-              return createTimeLineDynamic(titulo, project.timeline[index]);
+              return createTimeLineDynamic(
+                  titulo, project.timeline[index], index);
             },
           ),
         ],
@@ -296,11 +298,11 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
     );
   }
 
-  Widget createTimeLineDynamic(String titulo, TimeLine tl) {
+  Widget createTimeLineDynamic(String titulo, TimeLine tl, int index) {
     return Container(
       child: TimelineTile(
         beforeLineStyle: const LineStyle(
-          color: Colors.blue,
+          color: Colors.red,
           thickness: 6,
         ),
         alignment: TimelineAlign.manual,
@@ -311,15 +313,11 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
         ),
         lineXY: 0.3,
         endChild: Container(
-          constraints: const BoxConstraints(
-            minHeight: 300,
-          ),
-          child: customCardTimeLine(tl),
+          constraints: const BoxConstraints(),
+          child: customCardTimeLine(tl, index),
         ),
         startChild: Container(
-          constraints: const BoxConstraints(
-            minHeight: 120,
-          ),
+          constraints: const BoxConstraints(),
           child: Center(
             child: Text(project.endDate),
           ),

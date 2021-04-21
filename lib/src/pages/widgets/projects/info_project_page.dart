@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/timeline.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/custom_cards_widgets.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/documents_media_widgets.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
@@ -83,7 +85,6 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
     final data =
         await http.get(Uri.parse(uri), headers: {'Authorization': token});
     final decodedData = json.decode(data.body);
-    print(data.request);
     project = Project.fromJsonMap(decodedData);
   }
 
@@ -268,21 +269,6 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
   }
 
   Widget crearLineaDeTiempo(String titulo) {
-    List<Widget> listaDocumentos1 = [
-      createDocumentWidget(Icon(Icons.attach_file_rounded)),
-      createDocumentWidget(Icon(Icons.mail_outline))
-    ];
-    List<Widget> listaMedia1 = [
-      createMediaWidget("Youtube"),
-      createMediaWidget("Persona"),
-    ];
-    List<Widget> listaMedia2 = [
-      createMediaWidget("Youtube"),
-      createMediaWidget("Persona"),
-      createMediaWidget("Persona"),
-      createMediaWidget("Persona")
-    ];
-
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -295,77 +281,47 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           SizedBox(
             height: 10,
           ),
-          TimelineTile(
-            indicatorStyle: const IndicatorStyle(
-              width: 20,
-              color: Colors.red,
-              padding: EdgeInsets.all(8),
+          ListView.separated(
+            separatorBuilder: (_, __) => SizedBox(
+              height: 0,
             ),
-            beforeLineStyle: const LineStyle(
-              color: Colors.red,
-              thickness: 6,
-            ),
-            alignment: TimelineAlign.manual,
-            lineXY: 0.3,
-            endChild: Container(
-              constraints: const BoxConstraints(
-                minHeight: 300,
-              ),
-              child: customCardTimeLine(
-                'Inicio del proyecto',
-                project.startDate,
-                'Aqui van los detalles',
-                listaDocumentos1,
-                listaMedia1,
-                '15 May 2020 - 30 June 2020 (45 Days)',
-                'Webmaster',
-              ),
-            ),
-            startChild: Container(
-              constraints: const BoxConstraints(
-                minHeight: 120,
-              ),
-              child: Center(
-                child: Text(project.startDate),
-              ),
-            ),
-          ),
-          TimelineTile(
-            beforeLineStyle: const LineStyle(
-              color: Colors.blue,
-              thickness: 6,
-            ),
-            alignment: TimelineAlign.manual,
-            indicatorStyle: const IndicatorStyle(
-              width: 20,
-              color: Colors.blue,
-              padding: EdgeInsets.all(8),
-            ),
-            lineXY: 0.3,
-            endChild: Container(
-              constraints: const BoxConstraints(
-                minHeight: 300,
-              ),
-              child: customCardTimeLine(
-                'Grandes adelantos',
-                project.endDate,
-                'Aqui van los detalles',
-                listaDocumentos1,
-                listaMedia2,
-                "",
-                'Webmaster',
-              ),
-            ),
-            startChild: Container(
-              constraints: const BoxConstraints(
-                minHeight: 120,
-              ),
-              child: Center(
-                child: Text(project.endDate),
-              ),
-            ),
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: project.timeline.length,
+            itemBuilder: (context, index) {
+              return createTimeLineDynamic(
+                  titulo, project.timeline[index], index);
+            },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget createTimeLineDynamic(String titulo, TimeLine tl, int index) {
+    return Container(
+      child: TimelineTile(
+        beforeLineStyle: const LineStyle(
+          color: Colors.red,
+          thickness: 6,
+        ),
+        alignment: TimelineAlign.manual,
+        indicatorStyle: const IndicatorStyle(
+          width: 20,
+          color: Colors.blue,
+          padding: EdgeInsets.all(8),
+        ),
+        lineXY: 0.3,
+        endChild: Container(
+          constraints: const BoxConstraints(),
+          child: customCardTimeLine(tl, index),
+        ),
+        startChild: Container(
+          constraints: const BoxConstraints(),
+          child: Center(
+            child: Text(project.endDate),
+          ),
+        ),
       ),
     );
   }

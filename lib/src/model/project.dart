@@ -1,3 +1,6 @@
+import 'package:flutter/foundation.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/timeline.dart';
+
 class Project {
   String idProject;
   String name;
@@ -11,6 +14,7 @@ class Project {
   String urlImage;
   String latitude;
   String longitude;
+  List<TimeLine> timeline;
 
   Project();
 
@@ -39,6 +43,12 @@ class Project {
       for (var item in temp2) {
         components.add(item);
       }
+    }
+
+    var list = json['timeline'] as List;
+
+    if (list != null) {
+      timeline = list.map((i) => TimeLine.fromJsonMap(i)).toList();
     }
   }
 }

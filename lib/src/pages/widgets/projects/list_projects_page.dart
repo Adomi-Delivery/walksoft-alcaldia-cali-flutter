@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/offices.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/custom_cards_widgets.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
@@ -15,8 +16,16 @@ class ListProjectPage extends StatefulWidget {
 class _ListProjectPageState extends State<ListProjectPage> {
   List<Project> listaProyectos = [];
 
+  Offices o = Offices.createBasic(id: '0', name: 'Todas');
+
+  List<Offices> listaOffices = [];
+
+  String _optSeleccionada;
+
   @override
   Widget build(BuildContext context) {
+    listaOffices.clear();
+    listaOffices.add(o);
     Size size = MediaQuery.of(context).size;
     listaProyectos.clear();
     return Scaffold(
@@ -46,30 +55,16 @@ class _ListProjectPageState extends State<ListProjectPage> {
                           Text(
                             'Proyectos',
                             style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
+                                fontSize: 22, fontWeight: FontWeight.bold),
                           ),
                           Container(
-                            decoration: BoxDecoration(
-                              color: azulBoton,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            padding: EdgeInsets.all(10),
-                            child: Row(
-                              children: <Widget>[
-                                Text(
-                                  'Secretaría',
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white),
-                                ),
-                                SizedBox(width: 50),
-                                Icon(
-                                  Icons.arrow_downward_rounded,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ),
-                          ),
+                              decoration: BoxDecoration(
+                                color: azulBoton,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              padding: EdgeInsets.all(10),
+                              child: _crearDropdown()),
                         ],
                       ),
                     ),
@@ -100,7 +95,7 @@ class _ListProjectPageState extends State<ListProjectPage> {
 
     final data =
         await http.get(Uri.parse(uri), headers: {'Authorization': token});
-    print(data.request);
+
     final decodedData = json.decode(data.body);
 
     for (var item in decodedData) {
@@ -108,5 +103,67 @@ class _ListProjectPageState extends State<ListProjectPage> {
 
       listaProyectos.add(project);
     }
+
+    String uriOffices = 'http://proyectosoft.walksoft.com.co/api/offices';
+
+    final data2 = await http
+        .get(Uri.parse(uriOffices), headers: {'Authorization': token});
+
+    final decodedData2 = json.decode(data2.body);
+
+    for (var item in decodedData2) {
+      Offices ofi = Offices.fromJsonMap(item);
+
+      listaOffices.add(ofi);
+    }
+  }
+
+  Widget _crearDropdown() {
+    return Container(
+      width: 180,
+      height: 40,
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+          hint: Text(
+            'Filtrar',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          value: _optSeleccionada,
+          items: getOpcionesDropDown(),
+          style: TextStyle(
+            color: Colors.white,
+          ),
+          dropdownColor: azulBoton,
+          isExpanded: true,
+          onChanged: (opcionSeleccionada) {
+            setState(
+              () {
+                _optSeleccionada = opcionSeleccionada;
+              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  List<DropdownMenuItem<String>> getOpcionesDropDown() {
+    List<DropdownMenuItem<String>> lista = [];
+
+    listaOffices.forEach((off) {
+      lista.add(DropdownMenuItem(
+        child: Container(
+          child: Text(
+            off.name,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        value: off.id,
+      ));
+    });
+
+    return lista;
   }
 }

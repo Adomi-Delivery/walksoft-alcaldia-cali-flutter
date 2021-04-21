@@ -455,6 +455,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                 child: Text(
                   textoPoner,
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 10,
                 ),
               )
             ],

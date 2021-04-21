@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     HttpOverrides.global = new MyHttpOverrides();
     return MaterialApp(
-      title: 'Walksoft Cali',
+      title: 'ProyectSoft',
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: getApplicationRoutes(),

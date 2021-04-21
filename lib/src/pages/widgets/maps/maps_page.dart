@@ -13,6 +13,7 @@ class MapsPage extends StatefulWidget {
 }
 
 class _MapsPageState extends State<MapsPage> {
+  // ignore: unused_field
   GoogleMapController _controller;
   List<Project> listaProyectos;
   Set<Marker> _markers = HashSet<Marker>();

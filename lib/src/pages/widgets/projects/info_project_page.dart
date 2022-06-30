@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/timeline.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/custom_cards_widgets.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/documents_media_widgets.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 import 'package:http/http.dart' as http;
@@ -17,13 +15,13 @@ class InfoProjectPage extends StatefulWidget {
 }
 
 class _InfoProjectPageState extends State<InfoProjectPage> {
-  String _idProject;
-  Project project;
-  Size size;
+  String? _idProject;
+  Project? project;
+  late Size size;
 
   @override
   Widget build(BuildContext context) {
-    _idProject = ModalRoute.of(context).settings.arguments;
+    _idProject = ModalRoute.of(context)!.settings.arguments as String?;
     size = MediaQuery.of(context).size;
 
     cargarProyecto(_idProject);
@@ -78,7 +76,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
     );
   }
 
-  Future cargarProyecto(String id) async {
+  Future cargarProyecto(String? id) async {
     String uri = 'http://proyectosoft.walksoft.com.co/api/projects/$id';
     String token = '';
 
@@ -90,9 +88,9 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
 
   Widget configFotoAtras() {
     return Hero(
-      tag: project.idProject,
+      tag: project!.idProject!,
       child: FittedBox(
-        child: Image.network(project.urlImage),
+        child: Image.network(project!.urlImage),
         fit: BoxFit.cover,
       ),
     );
@@ -111,7 +109,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           Container(
             width: size.width * 0.8,
             child: Text(
-              project.name,
+              project!.name!,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -172,7 +170,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           GestureDetector(
             onTap: () {
               Navigator.pushNamed(context, 'DocumentosProyecto',
-                  arguments: project.name);
+                  arguments: project!.name);
             },
             child: Container(
               child: Center(
@@ -206,14 +204,14 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
       child: Column(
         children: <Widget>[
           SizedBox(height: 25),
-          crearTexto("¿Qué es?", project.description),
+          crearTexto("¿Qué es?", project!.description),
           SizedBox(height: 20),
-          crearTexto("Ubicación", project.location),
+          crearTexto("Ubicación", project!.location),
           SizedBox(height: 20),
           crearTexto(
-              "Costos", "\$" + project.costs + " es la inversión proyectada"),
+              "Costos", "\$" + project!.costs + " es la inversión proyectada"),
           SizedBox(height: 20),
-          crearTextoLista("Componentes", project.components),
+          crearTextoLista("Componentes", project!.components),
           SizedBox(height: 20),
           crearLineaDeTiempo("Linea de tiempo"),
           SizedBox(height: 20),
@@ -287,10 +285,10 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
             ),
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: project.timeline.length,
+            itemCount: project!.timeline.length,
             itemBuilder: (context, index) {
               return createTimeLineDynamic(
-                  titulo, project.timeline[index], index);
+                  titulo, project!.timeline[index], index);
             },
           ),
         ],
@@ -319,7 +317,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
         startChild: Container(
           constraints: const BoxConstraints(),
           child: Center(
-            child: Text(project.endDate),
+            child: Text(project!.endDate),
           ),
         ),
       ),
@@ -364,7 +362,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
   }
 
   Widget crearFotoEstado(String titulo) {
-    if (project.status) {
+    if (project!.status) {
       return Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -386,8 +384,8 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
     }
   }
 
-  Widget crearTexto(String titulo, String infoProyecto) {
-    String textoPoner = infoProyecto;
+  Widget crearTexto(String titulo, String? infoProyecto) {
+    String? textoPoner = infoProyecto;
 
     if (infoProyecto == 'null') {
       textoPoner = 'Hace falta!!';
@@ -409,7 +407,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
               Container(
                 width: size.width * 0.8,
                 child: Text(
-                  textoPoner,
+                  textoPoner!,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 10,
                 ),

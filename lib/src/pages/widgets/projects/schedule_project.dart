@@ -13,19 +13,19 @@ class ScheduleProjectPage extends StatefulWidget {
 }
 
 class _ScheduleProjectPageState extends State<ScheduleProjectPage> {
-  Project _project;
+  Project? _project;
 
   List<Schedule> _scheduleList = [];
 
   @override
   Widget build(BuildContext context) {
     _scheduleList = [];
-    _project = ModalRoute.of(context).settings.arguments;
+    _project = ModalRoute.of(context)!.settings.arguments as Project?;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: createAppBar(),
       body: FutureBuilder(
-        future: this.getScheduleProject(_project.idProject),
+        future: this.getScheduleProject(_project!.idProject),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
@@ -51,7 +51,7 @@ class _ScheduleProjectPageState extends State<ScheduleProjectPage> {
                             Container(
                               width: size.width * 0.5,
                               child: Text(
-                                _project.name,
+                                _project!.name!,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: TextStyle(
@@ -97,7 +97,7 @@ class _ScheduleProjectPageState extends State<ScheduleProjectPage> {
     );
   }
 
-  Future getScheduleProject(String id) async {
+  Future getScheduleProject(String? id) async {
     String uri = 'http://proyectosoft.walksoft.com.co/api/schedule?project=$id';
     String token = '';
 

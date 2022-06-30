@@ -1,6 +1,6 @@
 class Offices {
-  String id;
-  String name;
+  String? id;
+  String? name;
 
   Offices();
   Offices.createBasic({this.id, this.name});

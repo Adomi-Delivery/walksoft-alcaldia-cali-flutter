@@ -7,7 +7,7 @@ import 'package:walksoft_alcaldia_cali_flutter/src/model/splash.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 
 class SplashPage extends StatefulWidget {
-  static String imgUrl;
+  static String? imgUrl;
 
   @override
   _SplashPageState createState() => _SplashPageState();
@@ -64,7 +64,7 @@ class _SplashPageState extends State<SplashPage> {
         child: Image.network(
           // 'assets/splash.png',
 
-          infoSplash[0].url,
+          infoSplash[0].url!,
           // height: size.height * 0.9,
           fit: BoxFit.cover,
         ),

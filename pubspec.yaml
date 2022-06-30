@@ -1,21 +1,19 @@
 name: walksoft_alcaldia_cali_flutter
 description: A new Flutter project.
 
-
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.1
-  dio: ^4.0.0
-  carousel_slider: ^3.0.0
+  http: ^0.13.4
+  dio: ^4.0.6
+  carousel_slider: ^4.1.1
 
   cupertino_icons: ^1.0.2
   flutter_svg:
@@ -34,12 +32,7 @@ flutter_icons:
   ios: true
   image_path: "assets/icon/icon.png"
 
-
-
-
 flutter:
-
-  
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
@@ -48,7 +41,6 @@ flutter:
     - data/featured_projects.json
   #   - images/a_dot_ham.jpeg
 
-  
   # fonts:
   #   - family: Schyler
   #     fonts:

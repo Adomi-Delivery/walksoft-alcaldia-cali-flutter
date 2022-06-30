@@ -108,13 +108,13 @@ class _FaqsPageState extends State<FaqsPage> {
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
             title: Text(
-              listFaqs[index].question,
+              listFaqs[index].question!,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
             ),
             subtitle: Padding(
               padding: const EdgeInsets.all(5.0),
               child: Text(
-                listFaqs[index].answer,
+                listFaqs[index].answer!,
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 12,

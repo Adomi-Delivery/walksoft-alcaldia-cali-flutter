@@ -11,7 +11,7 @@ Widget customCardTimeLine(TimeLine t, int index) {
   String detalles = t.details;
   String notas = t.note;
   String autor = t.user;
-  List<File> listFiles = t.files;
+  List<File>? listFiles = t.files;
 
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -48,7 +48,7 @@ Widget customCardTimeLine(TimeLine t, int index) {
             SizedBox(height: 15),
             Text('Documentos:'),
             Row(
-              children: generarListaDocumentos(t.files),
+              children: generarListaDocumentos(t.files!),
             ),
             SizedBox(height: 20),
             Text('Notas:'),
@@ -84,7 +84,7 @@ List<Widget> generarListaDocumentos(List<File> lista) {
 
     l.add(GestureDetector(
       onTap: () {
-        _launchURL(item.url);
+        _launchURL(item.url!);
       },
       child: Container(
         height: 40,
@@ -161,7 +161,7 @@ Widget fotoProyecto(Project project) {
       borderRadius: BorderRadius.all(Radius.circular(10)),
     ),
     child: Hero(
-      tag: project.idProject,
+      tag: project.idProject!,
       child: FittedBox(child: Image.network('${project.urlImage}')),
     ),
   );
@@ -173,7 +173,7 @@ Widget informacionCentral(Project project) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Text(
-        project.name,
+        project.name!,
         style: TextStyle(fontWeight: FontWeight.bold),
         overflow: TextOverflow.ellipsis,
       ),

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -12,13 +11,13 @@ enum CircleAlignment {
 class QuarterCircle extends StatelessWidget {
   final CircleAlignment circleAlignment;
   final Color color;
-  final String imgUrl;
+  final String? imgUrl;
 
   const QuarterCircle({
     this.imgUrl,
     this.color = Colors.grey,
     this.circleAlignment = CircleAlignment.bottomRight,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -38,7 +37,7 @@ class QuarterCircle extends StatelessWidget {
               ),
               child: ClipRect(
                   child: Image.network(
-                imgUrl,
+                imgUrl!,
               )),
               isComplex: false,
             ),
@@ -50,8 +49,8 @@ class QuarterCircle extends StatelessWidget {
 }
 
 class QuarterCirclePainter extends CustomPainter {
-  final CircleAlignment circleAlignment;
-  final Color color;
+  final CircleAlignment? circleAlignment;
+  final Color? color;
 
   const QuarterCirclePainter({this.circleAlignment, this.color});
 
@@ -65,7 +64,7 @@ class QuarterCirclePainter extends CustomPainter {
             : circleAlignment == CircleAlignment.bottomRight
                 ? Offset(.0, size.height)
                 : Offset(size.width, size.height);
-    canvas.drawCircle(offset, radius, Paint()..color = color);
+    canvas.drawCircle(offset, radius, Paint()..color = color!);
   }
 
   @override

@@ -1,7 +1,7 @@
 class File {
-  String fileName;
-  String ext;
-  String url;
+  String? fileName;
+  String? ext;
+  String? url;
 
   File();
 

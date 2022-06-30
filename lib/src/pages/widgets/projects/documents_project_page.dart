@@ -8,11 +8,11 @@ class DocumentsProjectPage extends StatefulWidget {
 }
 
 class _DocumentsProjectPageState extends State<DocumentsProjectPage> {
-  String nombreProyecto;
+  String? nombreProyecto;
 
   @override
   Widget build(BuildContext context) {
-    nombreProyecto = ModalRoute.of(context).settings.arguments;
+    nombreProyecto = ModalRoute.of(context)!.settings.arguments as String?;
 
     return Scaffold(
       appBar: createAppBar(),

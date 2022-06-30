@@ -14,8 +14,8 @@ class MapsPage extends StatefulWidget {
 
 class _MapsPageState extends State<MapsPage> {
   // ignore: unused_field
-  GoogleMapController _controller;
-  List<Project> listaProyectos;
+  GoogleMapController? _controller;
+  List<Project>? listaProyectos;
   Set<Marker> _markers = HashSet<Marker>();
 
   @override
@@ -87,7 +87,7 @@ class _MapsPageState extends State<MapsPage> {
       setState(() {});
       _markers.add(
         Marker(
-          markerId: MarkerId(p.idProject),
+          markerId: MarkerId(p.idProject!),
           position: LatLng(
             double.parse(p.latitude),
             double.parse(p.longitude),

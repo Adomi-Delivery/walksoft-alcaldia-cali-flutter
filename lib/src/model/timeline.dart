@@ -1,12 +1,12 @@
 import 'package:walksoft_alcaldia_cali_flutter/src/model/file.dart';
 
 class TimeLine {
-  String createdAt;
-  String title;
-  String details;
-  String note;
-  String user;
-  List<File> files;
+  late String createdAt;
+  late String title;
+  late String details;
+  late String note;
+  late String user;
+  List<File>? files;
 
   TimeLine();
 
@@ -17,7 +17,7 @@ class TimeLine {
     note = json['note'].toString();
     user = json['user'].toString();
 
-    var list = json['files'] as List;
+    var list = json['files'] as List?;
 
     if (list != null) {
       files = list.map((i) => File.fromJsonMap(i)).toList();

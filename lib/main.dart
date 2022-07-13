@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/home_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/routes/routes.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+// init your dependency injection here
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
 
 class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext context) {
+  HttpClient createHttpClient(context) {
     return super.createHttpClient(context)
       ..badCertificateCallback =
           (X509Certificate cert, String host, int port) => true;

@@ -1,7 +1,7 @@
 class DevelopmentPlan {
-  String title;
-  String banner;
-  String url;
+  String? title;
+  String? banner;
+  String? url;
 
   DevelopmentPlan({this.title, this.banner, this.url});
 

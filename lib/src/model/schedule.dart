@@ -1,11 +1,11 @@
 class Schedule {
-  String id;
-  String name;
-  String description;
-  String startDateFormat;
-  String starHourFormat;
-  String endDateFormat;
-  String endHourFormat;
+  String? id;
+  late String name;
+  String? description;
+  late String startDateFormat;
+  late String starHourFormat;
+  String? endDateFormat;
+  String? endHourFormat;
 
   Schedule();
 

@@ -1,8 +1,8 @@
 class Splash {
-  int size;
-  String extension;
-  String type;
-  String url;
+  int? size;
+  String? extension;
+  String? type;
+  String? url;
 
   Splash({this.size, this.extension, this.type, this.url});
 

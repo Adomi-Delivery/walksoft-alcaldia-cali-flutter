@@ -238,15 +238,16 @@ class _HomePageState extends State<HomePage> {
       Uri url = Uri.parse(Constants.url + 'featured-projects');
       var response = await http.get(url);
 
-      List listJsonDecode = jsonDecode(response.body.toString());
+      List? listJsonDecode = jsonDecode(response.body.toString());
       if (this.mounted) {
         setState(() {
-          listCardProjects = listJsonDecode
+          listCardProjects = listJsonDecode!
               .map((mapProjects) => new FeaturedProjects.fromJson(mapProjects))
               .toList();
         });
       }
       return listCardProjects;
+    // ignore: non_constant_identifier_names
     } catch (Exeption) {
       _loadInfoCard();
     }
@@ -289,7 +290,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Text(
-                        listCardProjects[index].name,
+                        listCardProjects[index].name!,
                         style: TextStyle(
                             fontSize: 15,
                             color: verdePrincipal,
@@ -302,7 +303,7 @@ class _HomePageState extends State<HomePage> {
                       right: -55,
                       child: ClipOval(
                         child: Image.network(
-                          listCardProjects[index].image,
+                          listCardProjects[index].image!,
                           width: 170,
                           height: 170,
                           fit: BoxFit.cover,
@@ -560,7 +561,7 @@ class _HomePageState extends State<HomePage> {
       planList.add(plan);
     }
 
-    String urlGo = planList[0].url;
+    String urlGo = planList[0].url!;
     launch(urlGo);
   }
 }

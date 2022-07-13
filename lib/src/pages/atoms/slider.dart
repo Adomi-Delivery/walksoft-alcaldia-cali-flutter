@@ -10,7 +10,7 @@ class InfoSlide extends StatefulWidget {
 class _InfoSlideState extends State<InfoSlide> {
   String reason = '';
   final CarouselController _controller = CarouselController();
-  bool isShowingMainData;
+  bool? isShowingMainData;
   final List<String> imgList = [
     'Nueva Propuesta',
     'Pague Predial',

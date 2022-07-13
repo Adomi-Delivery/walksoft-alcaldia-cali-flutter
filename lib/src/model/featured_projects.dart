@@ -1,8 +1,8 @@
 class FeaturedProjects {
-  int id;
-  int order;
-  String name;
-  String image;
+  int? id;
+  int? order;
+  String? name;
+  String? image;
 
   FeaturedProjects({this.id, this.order, this.name, this.image});
 

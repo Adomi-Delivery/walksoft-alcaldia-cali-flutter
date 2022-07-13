@@ -1,20 +1,19 @@
-import 'package:flutter/foundation.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/timeline.dart';
 
 class Project {
-  String idProject;
-  String name;
-  String description;
-  String location;
-  String costs;
+  String? idProject;
+  String? name;
+  String? description;
+  String? location;
+  late String costs;
   List<String> components = [];
-  String startDate;
-  String endDate;
-  bool status;
-  String urlImage;
-  String latitude;
-  String longitude;
-  List<TimeLine> timeline;
+  late String startDate;
+  late String endDate;
+  late bool status;
+  late String urlImage;
+  late String latitude;
+  late String longitude;
+  late List<TimeLine> timeline;
 
   Project();
 
@@ -38,14 +37,14 @@ class Project {
       status = false;
     }
 
-    List<dynamic> temp2 = json["components"];
+    List<dynamic>? temp2 = json["components"];
     if (temp2 != null) {
       for (var item in temp2) {
         components.add(item);
       }
     }
 
-    var list = json['timeline'] as List;
+    var list = json['timeline'] as List?;
 
     if (list != null) {
       timeline = list.map((i) => TimeLine.fromJsonMap(i)).toList();

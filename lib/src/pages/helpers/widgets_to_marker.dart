@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:typed_data';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/helpers/marker_photo_project.dart';
@@ -17,7 +20,8 @@ Future<BitmapDescriptor> getMarkerPhotoProject(Project p) async {
 
   final picture = recorder.endRecording();
   final image = await picture.toImage(100, 100);
-  final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+  final byteData = await (image.toByteData(format: ui.ImageByteFormat.png)
+      as FutureOr<ByteData>);
 
   return BitmapDescriptor.fromBytes(byteData.buffer.asUint8List());
 }

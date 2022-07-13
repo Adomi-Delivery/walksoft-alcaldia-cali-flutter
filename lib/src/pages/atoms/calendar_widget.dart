@@ -8,7 +8,7 @@ Widget createCalendar() {
   final kLastDay =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
-  DateTime _selectedDay;
+  DateTime? _selectedDay;
 
   return TableCalendar(
     firstDay: kFirstDay,

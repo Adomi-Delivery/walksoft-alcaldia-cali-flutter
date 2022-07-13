@@ -1,10 +1,10 @@
 class Faqs {
-  int id;
-  String question;
-  String answer;
-  int status;
-  String createdAt;
-  String updatedAt;
+  int? id;
+  String? question;
+  String? answer;
+  int? status;
+  String? createdAt;
+  String? updatedAt;
 
   Faqs(
       {this.id,

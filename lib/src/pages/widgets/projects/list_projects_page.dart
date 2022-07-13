@@ -20,7 +20,7 @@ class _ListProjectPageState extends State<ListProjectPage> {
 
   List<Offices> listaOffices = [];
 
-  String _optSeleccionada;
+  String? _optSeleccionada;
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +137,7 @@ class _ListProjectPageState extends State<ListProjectPage> {
           ),
           dropdownColor: azulBoton,
           isExpanded: true,
-          onChanged: (opcionSeleccionada) {
+          onChanged: (dynamic opcionSeleccionada) {
             setState(
               () {
                 _optSeleccionada = opcionSeleccionada;
@@ -156,7 +156,7 @@ class _ListProjectPageState extends State<ListProjectPage> {
       lista.add(DropdownMenuItem(
         child: Container(
           child: Text(
-            off.name,
+            off.name!,
             overflow: TextOverflow.ellipsis,
           ),
         ),

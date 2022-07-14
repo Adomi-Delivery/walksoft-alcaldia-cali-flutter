@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/developmentPlan.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/featured_projects.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/sliders.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/slider.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/slider_home.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<FeaturedProjects> listCardProjects = [];
+  List<Sliders> listSliders = [];
   List<DevelopmentPlan> planList = [];
 
   @override
@@ -156,78 +159,29 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  _loadInfoSliders() async {
+    try {
+      Uri url = Uri.parse(Constants.url + 'sliders');
+      var response = await http.get(url);
+      List? listJsonDecode = jsonDecode(response.body.toString());
+      if (this.mounted) {
+        setState(() {
+          listSliders = listJsonDecode!
+              .map((mapProjects) => new Sliders.fromJson(mapProjects))
+              .toList();
+        });
+      }
+      return listSliders;
+    } catch (e) {
+      _loadInfoSliders();
+    }
+  }
+
   _createDevelopmentPlan(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Stack(
-      children: [
-        Container(
-          height: size.height * 0.20,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: amarilloTarjeta,
-          ),
-          child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                    'Plan de Desarollo Cali unida por la vida 2020 - 2023',
-                    style:
-                        TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
-              )),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 10),
-          alignment: Alignment.centerLeft,
-          height: size.height * 0.15,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.grey[400],
-          ),
-          child: Image.asset('assets/meeting.png'),
-        ),
-        Container(
-          padding: EdgeInsets.only(right: 10),
-          alignment: Alignment.centerRight,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              Card(
-                child: CircleAvatar(
-                  maxRadius: 20.0,
-                  backgroundColor: amarilocircleTarjeta,
-                  child: Image.asset(
-                    'assets/lamp.png',
-                    height: 50,
-                  ),
-                ),
-                elevation: 18.0,
-                shape: CircleBorder(),
-                clipBehavior: Clip.hardEdge,
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              MaterialButton(
-                textColor: blanco,
-                shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(7)),
-                color: verdeBottom,
-                onPressed: _launchURL,
-                child: Text(
-                  'Descargar',
-                ),
-              )
-            ],
-          ),
-        )
-      ],
+    _loadInfoSliders();
+    return SliderHome(
+      listSliders: listSliders,
     );
   }
 
@@ -247,7 +201,7 @@ class _HomePageState extends State<HomePage> {
         });
       }
       return listCardProjects;
-    // ignore: non_constant_identifier_names
+      // ignore: non_constant_identifier_names
     } catch (Exeption) {
       _loadInfoCard();
     }

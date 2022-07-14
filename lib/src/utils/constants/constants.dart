@@ -25,7 +25,7 @@ class Constants {
 const listaColores = [Colors.red, Colors.blue, Colors.green, Colors.cyan];
 
 const headers = {
-  // 'Content-Type': 'application/json',
+  'Content-Type': 'application/json',
   'Accept': '*/*',
   'Accept-Encoding': 'gzip, deflate, br',
   'Connection': 'keep-alive'

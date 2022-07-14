@@ -42,7 +42,7 @@ class _InfoSlideState extends State<InfoSlide> {
             items: imageSliders,
             options: CarouselOptions(
               enlargeCenterPage: true,
-              aspectRatio: 16 / 5,
+              aspectRatio: 16 / 6,
               onPageChanged: onPageChange,
               autoPlay: true,
             ),
@@ -70,7 +70,7 @@ class _InfoSlideState extends State<InfoSlide> {
         child: Column(
           children: [
             Container(
-              width: size.width * 0.85,
+              width: size.width * 0.86,
               height: 100,
               decoration: BoxDecoration(
                 image: DecorationImage(

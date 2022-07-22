@@ -1,12 +1,15 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/developmentPlan.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/featured_projects.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/sliders.dart';
+
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/slider.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/slider_home.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/info_project_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,13 +22,19 @@ class _HomePageState extends State<HomePage> {
   List<FeaturedProjects> listCardProjects = [];
   List<Sliders> listSliders = [];
   List<DevelopmentPlan> planList = [];
+  @override
+  void initState() {
+    _loadInfoCard();
+    _loadInfoSliders();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: createAppBar(),
+      appBar: CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: ListView(children: [
@@ -40,26 +49,13 @@ class _HomePageState extends State<HomePage> {
               height: size.height * 0.02,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Proyectos ',
-                style: TextStyle(
-                    fontSize: 25,
-                    color: verdePrincipal,
-                    fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.italic),
-              ),
-              Text(
-                'movilizadores',
-                style: TextStyle(
-                    fontSize: 25,
-                    color: verdeIconosBottom,
-                    fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.italic),
-              ),
-            ],
+          Text(
+            'Programas y proyectos.',
+            style: TextStyle(
+                fontSize: 20,
+                color: verdePrincipal,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.italic),
           ),
           SafeArea(
             child: SizedBox(
@@ -113,17 +109,8 @@ class _HomePageState extends State<HomePage> {
               height: size.height * 0.04,
             ),
           ),
-          InfoSlide(),
-          SafeArea(
-            child: SizedBox(
-              height: size.height * 0.01,
-            ),
-          ),
-          createCardNews(context),
-          SafeArea(
-            child: SizedBox(
-              height: size.height * 0.01,
-            ),
+          InfoSlide(
+            listSliders: listSliders,
           ),
           SafeArea(
             child: SizedBox(
@@ -133,20 +120,31 @@ class _HomePageState extends State<HomePage> {
           createCardNews(context),
           SafeArea(
             child: SizedBox(
-              height: size.height * 0.01,
+              height: size.height * 0.03,
             ),
           ),
-          SafeArea(
-            child: SizedBox(
-              height: size.height * 0.01,
-            ),
-          ),
-          createCardNews(context),
-          SafeArea(
-            child: SizedBox(
-              height: size.height * 0.06,
-            ),
-          ),
+          // SafeArea(
+          //   child: SizedBox(
+          //     height: size.height * 0.01,
+          //   ),
+          // ),
+          // createCardNews(context),
+          // SafeArea(
+          //   child: SizedBox(
+          //     height: size.height * 0.01,
+          //   ),
+          // ),
+          // SafeArea(
+          //   child: SizedBox(
+          //     height: size.height * 0.01,
+          //   ),
+          // ),
+          // createCardNews(context),
+          // SafeArea(
+          //   child: SizedBox(
+          //     height: size.height * 0.06,
+          //   ),
+          // ),
           _createGallery(context),
           SafeArea(
             child: SizedBox(
@@ -165,6 +163,7 @@ class _HomePageState extends State<HomePage> {
       var response = await http.get(url);
       List? listJsonDecode = jsonDecode(response.body.toString());
       if (this.mounted) {
+        print('_loadInfoSliders');
         setState(() {
           listSliders = listJsonDecode!
               .map((mapProjects) => new Sliders.fromJson(mapProjects))
@@ -179,40 +178,48 @@ class _HomePageState extends State<HomePage> {
 
   _createDevelopmentPlan(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    _loadInfoSliders();
+
     return SliderHome(
       listSliders: listSliders,
     );
   }
 
   _loadInfoCard() async {
-    // String url = Constants.url + 'featured-projects';
-    // Response response = await Dio().get(url);
     try {
       Uri url = Uri.parse(Constants.url + 'featured-projects');
+      // Uri url = Uri.parse(Constants.url + 'projects-and-programs');
       var response = await http.get(url);
 
-      List? listJsonDecode = jsonDecode(response.body.toString());
       if (this.mounted) {
+        print('_loadInfoCard');
+        Map<String, dynamic> map = json.decode(response.body);
+        List<dynamic> data = map["data"];
         setState(() {
-          listCardProjects = listJsonDecode!
+          listCardProjects = data
               .map((mapProjects) => new FeaturedProjects.fromJson(mapProjects))
               .toList();
         });
+
+        // List? listJsonDecode = jsonDecode(response.body.toString());
+        // if (this.mounted) {
+        //   setState(() {
+        //     listCardProjects = listJsonDecode!
+        //         .map(
+        //             (mapProjects) => new FeaturedProjects.fromJson(mapProjects))
+        //         .toList();
+        //   });
+        // }
+        // return listCardProjects;
       }
+
       return listCardProjects;
-      // ignore: non_constant_identifier_names
-    } catch (Exeption) {
+    } catch (e) {
       _loadInfoCard();
     }
   }
 
   _createCardProjects(BuildContext context) {
-    // dataProvider.loadDataLocal().then((dataProjects) {
-    //   this.listCardProjects = dataProjects;
-    // });
     final size = MediaQuery.of(context).size;
-    _loadInfoCard();
 
     return Container(
       height: size.height * 0.30,
@@ -223,8 +230,16 @@ class _HomePageState extends State<HomePage> {
           children: List.generate(listCardProjects.length, (index) {
             return GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, 'InfoProyecto',
-                    arguments: listCardProjects[index].id.toString());
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => InfoProjectPage(
+                      idProject: listCardProjects[index].id.toString(),
+                    ),
+                  ),
+                );
+                // Navigator.pushNamed(context, 'InfoProyecto',
+                //     arguments: listCardProjects[index].id.toString());
               },
               child: Container(
                 height: size.height * 0.10,
@@ -257,7 +272,7 @@ class _HomePageState extends State<HomePage> {
                       right: -55,
                       child: ClipOval(
                         child: Image.network(
-                          listCardProjects[index].image!,
+                          listCardProjects[index].coverImage!,
                           width: 170,
                           height: 170,
                           fit: BoxFit.cover,
@@ -297,12 +312,20 @@ class _HomePageState extends State<HomePage> {
           height: size.height * 0.11,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Colors.grey[100],
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                spreadRadius: 2,
+                color: Colors.grey[300]!,
+                offset: Offset(1, 2),
+                blurRadius: 4.0,
+              ),
+            ],
           ),
           child: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
             child: Row(
-              // mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
                 CircleAvatar(
@@ -353,17 +376,92 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
     return Column(
       children: [
-        Container(
-            height: size.height * 0.13,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              gradient: LinearGradient(
+        GestureDetector(
+          onTap: () => Navigator.pushNamed(context, 'sites'),
+          child: Container(
+              height: size.height * 0.13,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: <Color>[
                     amarilloGallery,
                     naranjaGallery,
-                  ]),
+                  ],
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    spreadRadius: 2,
+                    color: Colors.grey[300]!,
+                    offset: Offset(1, 2),
+                    blurRadius: 4.0,
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Image.asset(
+                      'assets/camera.png',
+                      height: 50,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Sitios de interés',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.lightBlue[900],
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Divider(
+                            height: 5,
+                          ),
+                          Text(
+                            'Santiago de Cali',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: blanco,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )),
+        ),
+        SizedBox(height: 20),
+        Container(
+            height: size.height * 0.13,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: <Color>[
+                  amarilloGallery,
+                  naranjaGallery,
+                ],
+              ),
+              boxShadow: [
+                BoxShadow(
+                  spreadRadius: 2,
+                  color: Colors.grey[300]!,
+                  offset: Offset(1, 2),
+                  blurRadius: 4.0,
+                ),
+              ],
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),

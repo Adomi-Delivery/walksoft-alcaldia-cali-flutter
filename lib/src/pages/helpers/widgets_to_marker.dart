@@ -11,17 +11,16 @@ import 'network_image.dart';
 Future<BitmapDescriptor> getMarkerPhotoProject(Project p) async {
   final recorder = new ui.PictureRecorder();
   final canvas = new ui.Canvas(recorder);
-  final size = new ui.Size(0, 0);
+  final size = new ui.Size(1, 1);
 
-  final ui.Image imagen = await loadImage(p.urlImage);
+  final ui.Image imagen = await loadImage(p.coverImage!);
 
   final markerPhoto = new MarkerPhotoProject(p, imagen);
   markerPhoto.paint(canvas, size);
 
   final picture = recorder.endRecording();
   final image = await picture.toImage(100, 100);
-  final byteData = await (image.toByteData(format: ui.ImageByteFormat.png)
-      as FutureOr<ByteData>);
+  final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
 
-  return BitmapDescriptor.fromBytes(byteData.buffer.asUint8List());
+  return BitmapDescriptor.fromBytes(byteData!.buffer.asUint8List());
 }

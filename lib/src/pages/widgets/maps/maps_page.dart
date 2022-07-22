@@ -6,6 +6,7 @@ import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
 import 'package:http/http.dart' as http;
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/helpers/widgets_to_marker.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/info_project_page.dart';
 
 class MapsPage extends StatefulWidget {
   @override
@@ -34,7 +35,7 @@ class _MapsPageState extends State<MapsPage> {
     if (listaProyectos == null) {
       chargeProjects();
       return Scaffold(
-        appBar: createAppBar(),
+        appBar: CustomAppBar(),
         body: Container(
           child: Center(
             child: CircularProgressIndicator(),
@@ -44,7 +45,7 @@ class _MapsPageState extends State<MapsPage> {
       );
     } else {
       return Scaffold(
-        appBar: createAppBar(),
+        appBar: CustomAppBar(),
         body: generateGoogleMap(),
         bottomNavigationBar: createBottomAppBar(3, context),
       );
@@ -57,9 +58,9 @@ class _MapsPageState extends State<MapsPage> {
     List<Project> temp = [];
     final data =
         await http.get(Uri.parse(uri), headers: {'Authorization': token});
-    print(data.request);
     final decodedData = json.decode(data.body);
-    for (var item in decodedData) {
+
+    for (var item in decodedData['data']) {
       Project project = Project.fromJsonMap(item);
 
       temp.add(project);
@@ -78,27 +79,33 @@ class _MapsPageState extends State<MapsPage> {
 
   static final CameraPosition _initialPositionMap = CameraPosition(
     target: LatLng(3.440465, -76.511884),
-    zoom: 12.5,
+    zoom: 15.5,
   );
 
   void _setMarkers(Project p) async {
-    if (double.parse(p.latitude) != -1) {
+    if (double.parse(p.latitude!) != -1) {
       final iconoMarker = await getMarkerPhotoProject(p);
       setState(() {});
       _markers.add(
         Marker(
-          markerId: MarkerId(p.idProject!),
+          markerId: MarkerId(p.id.toString()),
           position: LatLng(
-            double.parse(p.latitude),
-            double.parse(p.longitude),
+            double.parse(p.latitude!),
+            double.parse(p.longitude!),
           ),
           icon: iconoMarker,
           infoWindow: InfoWindow(
             title: p.name,
             snippet: p.location,
             onTap: () {
-              Navigator.pushNamed(context, 'InfoProyecto',
-                  arguments: p.idProject);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => InfoProjectPage(
+                    idProject: p.id!.toString(),
+                  ),
+                ),
+              );
             },
           ),
         ),

@@ -37,7 +37,7 @@ class MarkerPhotoProject extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(MarkerPhotoProject oldDelegate) => true;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 
   @override
   bool shouldRebuildSemantics(MarkerPhotoProject oldDelegate) => false;

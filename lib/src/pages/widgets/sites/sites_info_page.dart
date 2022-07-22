@@ -1,41 +1,43 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/sites.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/sites.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/timeline.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/custom_cards_widgets.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/sites/media_sites_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:timeline_tile/timeline_tile.dart';
 
-class InfoProjectPage extends StatefulWidget {
-  const InfoProjectPage({Key? key, this.idProject}) : super(key: key);
+class InfoSitestPage extends StatefulWidget {
+  const InfoSitestPage({Key? key, this.idSites}) : super(key: key);
 
   @override
-  _InfoProjectPageState createState() => _InfoProjectPageState();
-  final String? idProject;
+  _InfoSitestPageState createState() => _InfoSitestPageState();
+  final String? idSites;
 }
 
-class _InfoProjectPageState extends State<InfoProjectPage> {
-  Project? project;
+class _InfoSitestPageState extends State<InfoSitestPage> {
+  Sites? sites;
   late Size size;
 
   @override
   void initState() {
-    cargarProyecto(widget.idProject);
+    cargarProyecto(widget.idSites);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // widget.idProject = ModalRoute.of(context)!.settings.arguments as String?;
+    // widget.idSites = ModalRoute.of(context)!.settings.arguments as String?;
     size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: CustomAppBar(),
       body: FutureBuilder(
-        future: this.cargarProyecto(widget.idProject),
+        future: this.cargarProyecto(widget.idSites),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
@@ -53,6 +55,12 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                       Container(
                         width: double.infinity,
                         height: size.height * 0.4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(30),
+                            bottomRight: Radius.circular(30),
+                          ),
+                        ),
                         child: configFotoAtras(),
                       ),
                       Container(
@@ -83,7 +91,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
   }
 
   Future cargarProyecto(String? id) async {
-    String uri = 'http://proyectosoft.walksoft.com.co/api/projects/$id';
+    String uri = 'http://proyectosoft.walksoft.com.co/api/sites/$id';
     String token = '';
 
     final response =
@@ -92,14 +100,14 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
     // List<dynamic> data = map["data"];
     // final decodedData = json.decode(data.body);
 
-    project = Project.fromJsonMap(map['data']);
+    sites = Sites.fromJson(map['data']);
 
-    return project;
+    return sites;
   }
 
   Widget configFotoAtras() {
     return FittedBox(
-      child: Image.network(project!.coverImage!),
+      child: Image.network(sites!.files![0].path!),
       fit: BoxFit.cover,
     );
   }
@@ -117,7 +125,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           Container(
             width: size.width * 0.8,
             child: Text(
-              project!.name!,
+              sites!.name!,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -147,6 +155,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
       width: size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
             height: size.height * 0.04,
@@ -165,7 +174,12 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, 'MediaProyecto');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => MediaSitesPage(files: sites!.files!),
+                ),
+              );
             },
             child: Container(
               child: Center(
@@ -175,32 +189,32 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, 'DocumentosProyecto',
-                  arguments: project!.name);
-            },
-            child: Container(
-              child: Center(
-                child: Text(
-                  'Documentos',
-                ),
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, 'CalendarioProyecto',
-                  arguments: project);
-            },
-            child: Container(
-              child: Center(
-                child: Text(
-                  'Agenda',
-                ),
-              ),
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: () {
+          //     Navigator.pushNamed(context, 'DocumentosProyecto',
+          //         arguments: sites!.name);
+          //   },
+          //   child: Container(
+          //     child: Center(
+          //       child: Text(
+          //         'Documentos',
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // GestureDetector(
+          //   onTap: () {
+          //     Navigator.pushNamed(context, 'CalendarioProyecto',
+          //         arguments: sites);
+          //   },
+          //   child: Container(
+          //     child: Center(
+          //       child: Text(
+          //         'Agenda',
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -212,14 +226,14 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
       child: Column(
         children: <Widget>[
           SizedBox(height: 25),
-          crearTexto("¿Qué es?", project!.description),
+          crearTexto("¿Qué es?", sites!.description),
           SizedBox(height: 20),
-          crearTexto("Ubicación", project!.location),
+          crearTexto("Ubicación", sites!.address),
           SizedBox(height: 20),
-          crearTexto(
-              "Costos", "\$" + project!.costs! + " es la inversión proyectada"),
+          // crearTexto(
+          //     "Costos", "\$" + sites!.! + " es la inversión proyectada"),
           SizedBox(height: 20),
-          // crearTextoLista("Componentes", project!.components!),
+          // crearTextoLista("Componentes", sites!.components!),
           SizedBox(height: 20),
           // crearLineaDeTiempo("Linea de tiempo"),
           SizedBox(height: 20),
@@ -274,64 +288,6 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
     return lista;
   }
 
-  Widget crearLineaDeTiempo(String titulo) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(width: double.infinity),
-          Text(
-            titulo,
-            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          ListView.separated(
-            separatorBuilder: (_, __) => SizedBox(
-              height: 0,
-            ),
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: project!.timeline!.length,
-            itemBuilder: (context, index) {
-              return createTimeLineDynamic(
-                  titulo, project!.timeline![index], index);
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget createTimeLineDynamic(String titulo, TimeLine tl, int index) {
-    return Container(
-      child: TimelineTile(
-        beforeLineStyle: const LineStyle(
-          color: Colors.red,
-          thickness: 6,
-        ),
-        alignment: TimelineAlign.manual,
-        indicatorStyle: const IndicatorStyle(
-          width: 20,
-          color: Colors.blue,
-          padding: EdgeInsets.all(8),
-        ),
-        lineXY: 0.3,
-        endChild: Container(
-          constraints: const BoxConstraints(),
-          child: customCardTimeLine(tl, index),
-        ),
-        startChild: Container(
-          constraints: const BoxConstraints(),
-          child: Center(
-            child: Text(project!.endDate!),
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget crearTextoYAlarma(String titulo) {
     return Container(
       child: Row(
@@ -370,7 +326,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
   }
 
   Widget crearFotoEstado(String titulo) {
-    if (project!.status! == 1) {
+    if (sites!.status! == 1) {
       return Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

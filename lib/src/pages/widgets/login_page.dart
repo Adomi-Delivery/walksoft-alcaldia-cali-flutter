@@ -13,7 +13,7 @@ class _LoginPageState extends State<LoginPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: blancoFondo,
-      appBar: createAppBar(),
+      appBar: CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: ListView(

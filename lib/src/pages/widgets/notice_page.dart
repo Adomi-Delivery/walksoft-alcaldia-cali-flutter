@@ -11,7 +11,7 @@ class _NoticePageState extends State<NoticePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: createAppBar(),
+      appBar: CustomAppBar(),
       bottomNavigationBar: createBottomAppBar(4, context),
       body: Column(
         children: <Widget>[

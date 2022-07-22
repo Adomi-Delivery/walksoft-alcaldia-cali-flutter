@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/file.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/sites.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/timeline.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/helpers/currency.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/info_project_page.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/sites/sites_info_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 
 Widget customCardTimeLine(TimeLine t, int index) {
@@ -109,21 +114,46 @@ Widget createCustomCardProject(
   return Container(
     width: double.infinity,
     child: Padding(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Container(
         height: size.height * 0.12,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
           boxShadow: [
             BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
+                spreadRadius: 2.5,
+                blurRadius: 5,
                 offset: Offset(3, 3))
           ],
         ),
         child: configInformation(context, project, size),
+      ),
+    ),
+  );
+}
+
+Widget createCustomCardSites(
+    BuildContext context, int index, Size size, Sites project) {
+  return Container(
+    width: double.infinity,
+    child: Padding(
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: Container(
+        height: size.height * 0.12,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2.5,
+                blurRadius: 5,
+                offset: Offset(3, 3))
+          ],
+        ),
+        child: configInformationSites(context, project, size),
       ),
     ),
   );
@@ -143,10 +173,31 @@ Widget configInformation(BuildContext context, Project project, Size size) {
         width: size.width * 0.40,
         child: informacionCentral(project),
       ),
-      SizedBox(width: 10),
+      SizedBox(width: 20),
       Container(
         width: size.width * 0.20,
         child: botonFinal(context, project),
+      ),
+    ],
+  );
+}
+
+Widget configInformationSites(BuildContext context, Sites sites, Size size) {
+  return Row(
+    children: <Widget>[
+      SizedBox(width: 10),
+      Container(
+        child: fotoProyectoSites(sites),
+      ),
+      SizedBox(width: 10),
+      Container(
+        width: size.width * 0.40,
+        child: informacionCentralSites(sites),
+      ),
+      SizedBox(width: 20),
+      Container(
+        width: size.width * 0.20,
+        child: botonFinalSites(context, sites),
       ),
     ],
   );
@@ -161,9 +212,29 @@ Widget fotoProyecto(Project project) {
       borderRadius: BorderRadius.all(Radius.circular(10)),
     ),
     child: Hero(
-      tag: project.idProject!,
-      child: FittedBox(child: Image.network('${project.urlImage}')),
+      tag: project.id!,
+      child: FittedBox(child: Image.network('${project.coverImage}')),
     ),
+  );
+}
+
+Widget fotoProyectoSites(Sites project) {
+  return Container(
+    height: 50,
+    width: 50,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      image: DecorationImage(
+        image: NetworkImage(project.files![0].path!),
+        fit: BoxFit.cover,
+        alignment: Alignment.topCenter,
+      ),
+    ),
+    // child: Hero(
+    //   tag: project.id!,
+    //   child: FittedBox(child: Image.network('${project.files![0].path}')),
+    // ),
   );
 }
 
@@ -186,7 +257,7 @@ Widget informacionCentral(Project project) {
             'Inicio: ',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          Text(project.startDate),
+          Text(project.startDate!),
         ],
       ),
       SizedBox(height: 5),
@@ -198,7 +269,51 @@ Widget informacionCentral(Project project) {
             'Costo: ',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          Text(project.costs),
+          Text('${formatCurrency(number: double.parse(project.costs!))}'),
+        ],
+      ),
+    ],
+  );
+}
+
+Widget informacionCentralSites(Sites project) {
+  final dateTime = DateTime.parse(project.createdAt!);
+
+  final format = DateFormat('yyyy-MM-dd');
+  final _startAt = format.format(dateTime);
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Text(
+        project.name!,
+        style: TextStyle(fontWeight: FontWeight.bold),
+        overflow: TextOverflow.ellipsis,
+      ),
+      SizedBox(height: 5),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Inicio: ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(_startAt.toString()),
+        ],
+      ),
+      SizedBox(height: 5),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Tipo: ',
+            maxLines: 1,
+            softWrap: true,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(project.category!),
         ],
       ),
     ],
@@ -206,26 +321,68 @@ Widget informacionCentral(Project project) {
 }
 
 Widget botonFinal(BuildContext context, Project project) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: <Widget>[
-      TextButton(
-        onPressed: () {
-          Navigator.pushNamed(context, 'InfoProyecto',
-              arguments: project.idProject);
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: azulBoton,
+  return Align(
+    alignment: Alignment.bottomRight,
+    child: TextButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => InfoProjectPage(
+              idProject: project.id!.toString(),
+            ),
           ),
-          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+        );
+        // Navigator.pushNamed(context, 'InfoProyecto', arguments: project.id!);
+      },
+      child: Container(
+        width: 50,
+        height: 20,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          color: azulBoton,
+        ),
+        padding: EdgeInsets.symmetric(vertical: 3),
+        child: Center(
           child: Text(
             'Ver',
             style: TextStyle(color: Colors.white),
           ),
         ),
       ),
-    ],
+    ),
+  );
+}
+
+Widget botonFinalSites(BuildContext context, Sites project) {
+  return Align(
+    alignment: Alignment.bottomRight,
+    child: TextButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => InfoSitestPage(
+              idSites: project.id!.toString(),
+            ),
+          ),
+        );
+      },
+      child: Container(
+        width: 50,
+        height: 20,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          color: azulBoton,
+        ),
+        padding: EdgeInsets.symmetric(vertical: 3),
+        child: Center(
+          child: Text(
+            'Ver',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    ),
   );
 }

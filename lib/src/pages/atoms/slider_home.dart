@@ -16,15 +16,11 @@ class _SliderHomeState extends State<SliderHome> {
   String reason = '';
   final CarouselController _controller = CarouselController();
   bool? isShowingMainData;
-  final List<String> imgList = [
-    'Nueva Propuesta',
-    'Pague Predial',
-  ];
   @override
   Widget build(BuildContext context) {
     List<Images>? images;
     for (var i = 0; i < widget.listSliders!.length; i++) {
-      images = widget.listSliders![i].images!;
+      images = widget.listSliders![0].images!;
     }
     if (images == null) {
       return SizedBox();
@@ -86,10 +82,10 @@ class _SliderHomeState extends State<SliderHome> {
               color: amarilloTarjeta,
             ),
             child: Align(
-                alignment: Alignment.bottomCenter,
+                alignment: Alignment.bottomLeft,
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text('',
+                  padding: const EdgeInsets.only(top: 15, bottom: 8, left: 15),
+                  child: Text(item.description!,
                       style:
                           TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
                 )),

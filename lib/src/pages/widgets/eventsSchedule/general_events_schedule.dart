@@ -20,7 +20,7 @@ class _GeneralEventsScheduleState extends State<GeneralEventsSchedule> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: createAppBar(),
+      appBar: CustomAppBar(),
       body: FutureBuilder(
         future: this.getScheduleProject(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

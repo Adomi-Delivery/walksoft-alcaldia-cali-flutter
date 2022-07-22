@@ -15,7 +15,7 @@ class _DocumentsProjectPageState extends State<DocumentsProjectPage> {
     nombreProyecto = ModalRoute.of(context)!.settings.arguments as String?;
 
     return Scaffold(
-      appBar: createAppBar(),
+      appBar: CustomAppBar(),
       body: Column(
         children: <Widget>[
           Container(

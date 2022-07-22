@@ -23,9 +23,9 @@ class _ScheduleProjectPageState extends State<ScheduleProjectPage> {
     _project = ModalRoute.of(context)!.settings.arguments as Project?;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: createAppBar(),
+      appBar: CustomAppBar(),
       body: FutureBuilder(
-        future: this.getScheduleProject(_project!.idProject),
+        future: this.getScheduleProject(_project!.id.toString()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
@@ -75,7 +75,7 @@ class _ScheduleProjectPageState extends State<ScheduleProjectPage> {
                     ),
                   ),
                   Container(
-                    height: 350,
+                    // height: 350,
                     width: size.width * 0.9,
                     child: createCalendar(),
                   ),

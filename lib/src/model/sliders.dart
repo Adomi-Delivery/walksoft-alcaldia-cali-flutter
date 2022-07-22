@@ -35,18 +35,21 @@ class Images {
   String? mimeType;
   String? createdAt;
   String? updatedAt;
+  String? description;
 
-  Images(
-      {this.id,
-      this.sliderId,
-      this.image,
-      this.link,
-      this.filename,
-      this.size,
-      this.extension,
-      this.mimeType,
-      this.createdAt,
-      this.updatedAt});
+  Images({
+    this.id,
+    this.sliderId,
+    this.image,
+    this.link,
+    this.filename,
+    this.size,
+    this.extension,
+    this.mimeType,
+    this.createdAt,
+    this.updatedAt,
+    this.description,
+  });
 
   Images.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -59,6 +62,7 @@ class Images {
     mimeType = json['mime_type'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    description = json['description'];
   }
 
   Map<String, dynamic> toJson() {
@@ -73,6 +77,7 @@ class Images {
     data['mime_type'] = this.mimeType;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['description'] = this.description;
     return data;
   }
 }

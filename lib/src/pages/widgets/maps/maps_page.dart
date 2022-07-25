@@ -9,8 +9,11 @@ import 'package:walksoft_alcaldia_cali_flutter/src/pages/helpers/widgets_to_mark
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/info_project_page.dart';
 
 class MapsPage extends StatefulWidget {
+  const MapsPage({Key? key, this.isPrograms}) : super(key: key);
+
   @override
   _MapsPageState createState() => _MapsPageState();
+  final bool? isPrograms;
 }
 
 class _MapsPageState extends State<MapsPage> {
@@ -43,6 +46,31 @@ class _MapsPageState extends State<MapsPage> {
         ),
         bottomNavigationBar: createBottomAppBar(3, context),
       );
+    } else if (listaProyectos!.length == 0) {
+      return Scaffold(
+        appBar: CustomAppBar(),
+        body: Container(
+          // height: MediaQuery.of(context).size.height * 0.65,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.insert_drive_file_outlined,
+                size: 20,
+                color: Colors.grey[400],
+              ),
+              Text(
+                'Sin datos',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: createBottomAppBar(3, context),
+      );
     } else {
       return Scaffold(
         appBar: CustomAppBar(),
@@ -53,7 +81,13 @@ class _MapsPageState extends State<MapsPage> {
   }
 
   Future chargeProjects() async {
-    String uri = 'http://proyectosoft.walksoft.com.co/api/projects';
+    String? uri;
+    if (widget.isPrograms!) {
+      uri = 'http://proyectosoft.walksoft.com.co/api/programs';
+    } else {
+      uri = 'http://proyectosoft.walksoft.com.co/api/projects';
+    }
+
     String token = '';
     List<Project> temp = [];
     final data =
@@ -79,7 +113,7 @@ class _MapsPageState extends State<MapsPage> {
 
   static final CameraPosition _initialPositionMap = CameraPosition(
     target: LatLng(3.440465, -76.511884),
-    zoom: 15.5,
+    zoom: 12.5,
   );
 
   void _setMarkers(Project p) async {

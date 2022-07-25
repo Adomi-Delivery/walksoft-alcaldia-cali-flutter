@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/app_bar.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/custom_dialog.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+
+import '../widgets/maps/maps_page.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   CustomAppBar({
@@ -180,7 +183,78 @@ Container createButtom(
           child: IconButton(
             icon: icono,
             onPressed: () {
-              Navigator.popAndPushNamed(context, rutaDestino);
+              if (rutaDestino == 'Mapas') {
+                showCustomDialog(
+                  context,
+                  // title: "Mapa",
+                  title: "Seleccione la opción que desea cargar",
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ButtonTheme(
+                        minWidth: MediaQuery.of(context).size.width / 6,
+                        height: 30,
+                        buttonColor: Color(0xff00C600),
+                        child: MaterialButton(
+                          color: Color(0xff00C600),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            'Programas',
+                            style: TextStyle(
+                              color: Colors.grey[50],
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => MapsPage(
+                                  isPrograms: false,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      ButtonTheme(
+                          minWidth: MediaQuery.of(context).size.width / 6,
+                          height: 30,
+                          buttonColor: Theme.of(context).errorColor,
+                          child: MaterialButton(
+                            color: Color(0xff00C600),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              'Proyectos',
+                              style: TextStyle(
+                                color: Colors.grey[50],
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => MapsPage(
+                                    isPrograms: true,
+                                  ),
+                                ),
+                              );
+                            },
+                          )),
+                    ],
+                  ),
+                );
+              } else {
+                Navigator.popAndPushNamed(context, rutaDestino);
+              }
             },
           ),
         ),

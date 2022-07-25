@@ -103,20 +103,18 @@ class _MediaSitesPageState extends State<MediaSitesPage> {
   }
 
   Widget crearFoto(String path) {
-    return Expanded(
-      child: Container(
-        child: Center(
-          child: Container(
-            width: 160,
-            height: 130,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(15),
-              ),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(path),
-              ),
+    return Container(
+      child: Center(
+        child: Container(
+          width: 160,
+          height: 130,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(path),
             ),
           ),
         ),

@@ -5,10 +5,12 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/developmentPlan.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/featured_projects.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/sliders.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/custom_dialog.dart';
 
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/slider.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/slider_home.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/maps/maps_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/info_project_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 import 'package:http/http.dart' as http;
@@ -442,68 +444,71 @@ class _HomePageState extends State<HomePage> {
               )),
         ),
         SizedBox(height: 20),
-        Container(
-            height: size.height * 0.13,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: <Color>[
-                  amarilloGallery,
-                  naranjaGallery,
-                ],
-              ),
-              boxShadow: [
-                BoxShadow(
-                  spreadRadius: 2,
-                  color: Colors.grey[300]!,
-                  offset: Offset(1, 2),
-                  blurRadius: 4.0,
+        GestureDetector(
+          onTap: () {},
+          child: Container(
+              height: size.height * 0.13,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: <Color>[
+                    amarilloGallery,
+                    naranjaGallery,
+                  ],
                 ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Image.asset(
-                    'assets/camera.png',
-                    height: 50,
+                boxShadow: [
+                  BoxShadow(
+                    spreadRadius: 2,
+                    color: Colors.grey[300]!,
+                    offset: Offset(1, 2),
+                    blurRadius: 4.0,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Galeria de Fotos',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.lightBlue[900],
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Divider(
-                          height: 5,
-                        ),
-                        Text(
-                          'Santiago de Cali',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: blanco,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
                 ],
               ),
-            )),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Image.asset(
+                      'assets/camera.png',
+                      height: 50,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Galeria de Fotos',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.lightBlue[900],
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Divider(
+                            height: 5,
+                          ),
+                          Text(
+                            'Santiago de Cali',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: blanco,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )),
+        ),
         SizedBox(
           height: size.height * 0.08,
         ),

@@ -11,6 +11,7 @@ import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/slider.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/slider_home.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/maps/maps_page.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/notice/notice_list_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/info_project_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 import 'package:http/http.dart' as http;
@@ -314,8 +315,13 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.all(5.0),
       child: GestureDetector(
         onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => NoticeListPage(),
+            ),
+          );
           // Navigator.pushNamed(context, 'NoticePage');
-          Navigator.pushNamed(context, 'NoticePage');
         },
         child: Container(
           height: size.height * 0.11,

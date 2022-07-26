@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/file.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/notice.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/sites.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/timeline.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/helpers/currency.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/notice/notice_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/info_project_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/sites/sites_info_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
@@ -159,6 +161,31 @@ Widget createCustomCardSites(
   );
 }
 
+Widget createCustomCardNotice(
+    BuildContext context, int index, Size size, Notice project) {
+  return Container(
+    width: double.infinity,
+    child: Padding(
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: Container(
+        height: size.height * 0.12,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2.5,
+                blurRadius: 5,
+                offset: Offset(3, 3))
+          ],
+        ),
+        child: configInformationNotice(context, project, size),
+      ),
+    ),
+  );
+}
+
 Widget configInformation(BuildContext context, Project project, Size size) {
   return Row(
     children: <Widget>[
@@ -203,6 +230,27 @@ Widget configInformationSites(BuildContext context, Sites sites, Size size) {
   );
 }
 
+Widget configInformationNotice(BuildContext context, Notice sites, Size size) {
+  return Row(
+    children: <Widget>[
+      SizedBox(width: 10),
+      Container(
+        child: fotoProyectoNotice(sites),
+      ),
+      SizedBox(width: 10),
+      Container(
+        width: size.width * 0.50,
+        child: informacionCentralNotice(sites),
+      ),
+      // SizedBox(width: 10),
+      Container(
+        width: size.width * 0.15,
+        child: botonFinalNotice(context, sites),
+      ),
+    ],
+  );
+}
+
 Widget fotoProyecto(Project project) {
   return Container(
     height: 50,
@@ -227,6 +275,26 @@ Widget fotoProyectoSites(Sites project) {
       borderRadius: BorderRadius.all(Radius.circular(10)),
       image: DecorationImage(
         image: NetworkImage(project.files![0].path!),
+        fit: BoxFit.cover,
+        alignment: Alignment.topCenter,
+      ),
+    ),
+    // child: Hero(
+    //   tag: project.id!,
+    //   child: FittedBox(child: Image.network('${project.files![0].path}')),
+    // ),
+  );
+}
+
+Widget fotoProyectoNotice(Notice project) {
+  return Container(
+    height: 50,
+    width: 50,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      image: DecorationImage(
+        image: NetworkImage(project.coverImage!),
         fit: BoxFit.cover,
         alignment: Alignment.topCenter,
       ),
@@ -320,6 +388,50 @@ Widget informacionCentralSites(Sites project) {
   );
 }
 
+Widget informacionCentralNotice(Notice project) {
+  final dateTime = DateTime.parse(project.createdAt!);
+
+  final format = DateFormat('yyyy-MM-dd');
+  final _startAt = format.format(dateTime);
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Text(
+        project.title!,
+        style: TextStyle(fontWeight: FontWeight.bold),
+        overflow: TextOverflow.ellipsis,
+      ),
+      SizedBox(height: 5),
+      SizedBox(
+        // width: 100,
+        child: Text(
+          project.content!,
+          maxLines: 1,
+          softWrap: true,
+          style: TextStyle(
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ),
+      // SizedBox(height: 5),
+      // Row(
+      //   mainAxisAlignment: MainAxisAlignment.start,
+      //   crossAxisAlignment: CrossAxisAlignment.start,
+      //   children: [
+      //     Text(
+      //       'Tipo: ',
+      //       maxLines: 1,
+      //       softWrap: true,
+      //       style: TextStyle(fontWeight: FontWeight.bold),
+      //     ),
+      //     Text(project.category!),
+      //   ],
+      // ),
+    ],
+  );
+}
+
 Widget botonFinal(BuildContext context, Project project) {
   return Align(
     alignment: Alignment.bottomRight,
@@ -364,6 +476,39 @@ Widget botonFinalSites(BuildContext context, Sites project) {
           MaterialPageRoute(
             builder: (_) => InfoSitestPage(
               idSites: project.id!.toString(),
+            ),
+          ),
+        );
+      },
+      child: Container(
+        width: 60,
+        height: 20,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          color: azulBoton,
+        ),
+        padding: EdgeInsets.symmetric(vertical: 3),
+        child: Center(
+          child: Text(
+            'Ver',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget botonFinalNotice(BuildContext context, Notice project) {
+  return Align(
+    alignment: Alignment.bottomRight,
+    child: TextButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => NoticePage(
+              notice: project,
             ),
           ),
         );

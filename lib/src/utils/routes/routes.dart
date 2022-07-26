@@ -4,7 +4,7 @@ import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/faqs_page.dart'
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/maps/maps_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/home_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/login_page.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/notice_page.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/notice/notice_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/documents_project_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/info_project_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/list_projects_page.dart';

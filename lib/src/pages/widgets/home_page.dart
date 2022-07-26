@@ -86,21 +86,28 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    SizedBox(
+                      width: 10,
+                    ),
                     Text(
-                      'Ver todos los proyectos ',
+                      'Ver todos',
                       style: TextStyle(
                         fontSize: 23,
                         color: blanco,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
+                    Spacer(),
                     CircleAvatar(
                       backgroundColor: blanco,
                       child: Icon(
                         Icons.arrow_forward_rounded,
                         color: verdePrincipal,
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
                   ],
                 ),
               ),

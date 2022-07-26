@@ -188,7 +188,7 @@ Container createButtom(
                   context,
                   // title: "Mapa",
                   title: "Seleccione la opción que desea cargar",
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ButtonTheme(
@@ -201,7 +201,7 @@ Container createButtom(
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
-                            'Programas',
+                            'Programas y Proyectos',
                             style: TextStyle(
                               color: Colors.grey[50],
                               fontWeight: FontWeight.w800,
@@ -212,7 +212,7 @@ Container createButtom(
                               context,
                               MaterialPageRoute(
                                 builder: (_) => MapsPage(
-                                  isPrograms: false,
+                                  isPrograms: true,
                                 ),
                               ),
                             );
@@ -232,7 +232,7 @@ Container createButtom(
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
-                              'Proyectos',
+                              'Sitios de interés',
                               style: TextStyle(
                                 color: Colors.grey[50],
                                 fontWeight: FontWeight.w800,
@@ -243,7 +243,7 @@ Container createButtom(
                                 context,
                                 MaterialPageRoute(
                                   builder: (_) => MapsPage(
-                                    isPrograms: true,
+                                    isPrograms: false,
                                   ),
                                 ),
                               );

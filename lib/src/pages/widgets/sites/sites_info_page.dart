@@ -2,14 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/sites.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/model/sites.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/model/timeline.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/custom_cards_widgets.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/sites/media_sites_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:timeline_tile/timeline_tile.dart';
 
 class InfoSitestPage extends StatefulWidget {
   const InfoSitestPage({Key? key, this.idSites}) : super(key: key);

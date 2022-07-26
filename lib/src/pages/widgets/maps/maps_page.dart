@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/sites.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
 import 'package:http/http.dart' as http;
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/helpers/widgets_to_marker.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/info_project_page.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/sites/sites_info_page.dart';
 
 class MapsPage extends StatefulWidget {
   const MapsPage({Key? key, this.isPrograms}) : super(key: key);
@@ -20,74 +22,112 @@ class _MapsPageState extends State<MapsPage> {
   // ignore: unused_field
   GoogleMapController? _controller;
   List<Project>? listaProyectos;
+  List<Sites>? listaSites;
   Set<Marker> _markers = HashSet<Marker>();
 
   @override
   void initState() {
+    chargeData();
     super.initState();
-
-    chargeProjects().then((value) {
-      setState(() {
-        this.listaProyectos = value;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (listaProyectos == null) {
-      chargeProjects();
-      return Scaffold(
-        appBar: CustomAppBar(),
-        body: Container(
-          child: Center(
-            child: CircularProgressIndicator(),
+    if (widget.isPrograms!) {
+      if (listaProyectos == null) {
+        chargeData();
+        return Scaffold(
+          appBar: CustomAppBar(),
+          body: Container(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           ),
-        ),
-        bottomNavigationBar: createBottomAppBar(3, context),
-      );
-    } else if (listaProyectos!.length == 0) {
-      return Scaffold(
-        appBar: CustomAppBar(),
-        body: Container(
-          // height: MediaQuery.of(context).size.height * 0.65,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.insert_drive_file_outlined,
-                size: 20,
-                color: Colors.grey[400],
-              ),
-              Text(
-                'Sin datos',
-                style: TextStyle(
-                  color: Colors.grey,
+          bottomNavigationBar: createBottomAppBar(3, context),
+        );
+      } else if (listaProyectos!.length == 0) {
+        return Scaffold(
+          appBar: CustomAppBar(),
+          body: Container(
+            // height: MediaQuery.of(context).size.height * 0.65,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.insert_drive_file_outlined,
+                  size: 20,
+                  color: Colors.grey[400],
                 ),
-              ),
-            ],
+                Text(
+                  'Sin datos',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        bottomNavigationBar: createBottomAppBar(3, context),
-      );
+          bottomNavigationBar: createBottomAppBar(3, context),
+        );
+      } else {
+        return Scaffold(
+          appBar: CustomAppBar(),
+          body: generateGoogleMap(),
+          bottomNavigationBar: createBottomAppBar(3, context),
+        );
+      }
     } else {
-      return Scaffold(
-        appBar: CustomAppBar(),
-        body: generateGoogleMap(),
-        bottomNavigationBar: createBottomAppBar(3, context),
-      );
+      if (listaSites == null) {
+        chargeData();
+        return Scaffold(
+          appBar: CustomAppBar(),
+          body: Container(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+          bottomNavigationBar: createBottomAppBar(3, context),
+        );
+      } else if (listaSites!.length == 0) {
+        return Scaffold(
+          appBar: CustomAppBar(),
+          body: Container(
+            // height: MediaQuery.of(context).size.height * 0.65,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.insert_drive_file_outlined,
+                  size: 20,
+                  color: Colors.grey[400],
+                ),
+                Text(
+                  'Sin datos',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          bottomNavigationBar: createBottomAppBar(3, context),
+        );
+      } else {
+        return Scaffold(
+          appBar: CustomAppBar(),
+          body: generateGoogleMap(),
+          bottomNavigationBar: createBottomAppBar(3, context),
+        );
+      }
     }
   }
 
   Future chargeProjects() async {
     String? uri;
-    if (widget.isPrograms!) {
-      uri = 'http://proyectosoft.walksoft.com.co/api/programs';
-    } else {
-      uri = 'http://proyectosoft.walksoft.com.co/api/projects';
-    }
 
+    uri = 'http://proyectosoft.walksoft.com.co/api/projects-and-programs';
     String token = '';
     List<Project> temp = [];
     final data =
@@ -101,9 +141,30 @@ class _MapsPageState extends State<MapsPage> {
     }
 
     for (var item in temp) {
-      _setMarkers(item);
+      _setMarkers(widget.isPrograms!, p: item);
     }
 
+    return temp;
+  }
+
+  Future chargeSites() async {
+    String? uri;
+
+    uri = 'http://proyectosoft.walksoft.com.co/api/sites';
+    String token = '';
+    List<Sites> temp = [];
+    final data =
+        await http.get(Uri.parse(uri), headers: {'Authorization': token});
+    final decodedData = json.decode(data.body);
+
+    for (var item in decodedData['data']) {
+      Sites sites = Sites.fromJson(item);
+
+      temp.add(sites);
+    }
+    for (var item in temp) {
+      _setMarkers(widget.isPrograms!, s: item);
+    }
     return temp;
   }
 
@@ -116,34 +177,65 @@ class _MapsPageState extends State<MapsPage> {
     zoom: 12.5,
   );
 
-  void _setMarkers(Project p) async {
-    if (double.parse(p.latitude!) != -1) {
-      final iconoMarker = await getMarkerPhotoProject(p);
-      setState(() {});
-      _markers.add(
-        Marker(
-          markerId: MarkerId(p.id.toString()),
-          position: LatLng(
-            double.parse(p.latitude!),
-            double.parse(p.longitude!),
-          ),
-          icon: iconoMarker,
-          infoWindow: InfoWindow(
-            title: p.name,
-            snippet: p.location,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => InfoProjectPage(
-                    idProject: p.id!.toString(),
+  void _setMarkers(bool isProgram, {Project? p, Sites? s}) async {
+    if (isProgram) {
+      if (double.parse(p!.latitude!) != -1) {
+        final iconoMarker = await getMarkerPhotoProject(isProgram, p: p);
+        setState(() {});
+        _markers.add(
+          Marker(
+            markerId: MarkerId(p.id.toString()),
+            position: LatLng(
+              double.parse(p.latitude!),
+              double.parse(p.longitude!),
+            ),
+            icon: iconoMarker,
+            infoWindow: InfoWindow(
+              title: p.name,
+              snippet: p.location,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => InfoProjectPage(
+                      idProject: p.id!.toString(),
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
-        ),
-      );
+        );
+      }
+    } else {
+      if (double.parse(s!.latitude!) != -1) {
+        final iconoMarker = await getMarkerPhotoProject(isProgram, s: s);
+        setState(() {});
+        _markers.add(
+          Marker(
+            markerId: MarkerId(s.id.toString()),
+            position: LatLng(
+              double.parse(s.latitude!),
+              double.parse(s.longitude!),
+            ),
+            icon: iconoMarker,
+            infoWindow: InfoWindow(
+              title: s.name,
+              snippet: s.address,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => InfoSitestPage(
+                      idSites: s.id!.toString(),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      }
     }
   }
 
@@ -154,5 +246,21 @@ class _MapsPageState extends State<MapsPage> {
       onMapCreated: _onMapCreated,
       markers: _markers,
     );
+  }
+
+  chargeData() {
+    if (widget.isPrograms!) {
+      chargeProjects().then((value) {
+        setState(() {
+          this.listaProyectos = value;
+        });
+      });
+    } else {
+      chargeSites().then((value) {
+        setState(() {
+          this.listaSites = value;
+        });
+      });
+    }
   }
 }

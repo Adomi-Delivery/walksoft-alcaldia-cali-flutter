@@ -5,6 +5,7 @@ import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/timeline.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/custom_cards_widgets.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/helpers/currency.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:timeline_tile/timeline_tile.dart';
@@ -217,15 +218,17 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           crearTexto("Ubicación", project!.location),
           SizedBox(height: 20),
           crearTexto(
-              "Costos", "\$" + project!.costs! + " es la inversión proyectada"),
+              "Costos",
+              formatCurrency(number: double.parse(project!.costs!)) +
+                  " es la inversión proyectada"),
           SizedBox(height: 20),
           // crearTextoLista("Componentes", project!.components!),
           SizedBox(height: 20),
           // crearLineaDeTiempo("Linea de tiempo"),
-          SizedBox(height: 20),
-          crearTextoYAlarma("Seguimos trabajando"),
-          SizedBox(height: 20),
-          crearFotoEstado("Foto de estado"),
+          // SizedBox(height: 20),
+          // crearTextoYAlarma("Seguimos trabajando"),
+          // SizedBox(height: 20),
+          // crearFotoEstado("Foto de estado"),
         ],
       ),
     );

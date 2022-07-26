@@ -118,7 +118,8 @@ class _InfoSlideState extends State<InfoSlide> {
                                 topRight: Radius.circular(50),
                                 bottomRight: Radius.circular(50))),
                         child: Text(
-                          item.description!,
+                          // item.description!,
+                          '',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.grey[900],

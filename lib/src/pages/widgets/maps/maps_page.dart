@@ -127,7 +127,7 @@ class _MapsPageState extends State<MapsPage> {
   Future chargeProjects() async {
     String? uri;
 
-    uri = 'http://proyectosoft.walksoft.com.co/api/projects-and-programs';
+    uri = 'http://proyectosoft.walksoft.com.co/api/projects';
     String token = '';
     List<Project> temp = [];
     final data =
@@ -190,20 +190,30 @@ class _MapsPageState extends State<MapsPage> {
               double.parse(p.longitude!),
             ),
             icon: iconoMarker,
-            infoWindow: InfoWindow(
-              title: p.name,
-              snippet: p.location,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => InfoProjectPage(
-                      idProject: p.id!.toString(),
-                    ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => InfoProjectPage(
+                    idProject: p.id!.toString(),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
+            // infoWindow: InfoWindow(
+            //   title: p.name,
+            //   snippet: p.location,
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (_) => InfoProjectPage(
+            //           idProject: p.id!.toString(),
+            //         ),
+            //       ),
+            //     );
+            //   },
+            // ),
           ),
         );
       }
@@ -218,21 +228,31 @@ class _MapsPageState extends State<MapsPage> {
               double.parse(s.latitude!),
               double.parse(s.longitude!),
             ),
-            icon: iconoMarker,
-            infoWindow: InfoWindow(
-              title: s.name,
-              snippet: s.address,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => InfoSitestPage(
-                      idSites: s.id!.toString(),
-                    ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => InfoSitestPage(
+                    idSites: s.id!.toString(),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
+            icon: iconoMarker,
+            // infoWindow: InfoWindow(
+            //   title: s.name,
+            //   snippet: s.address,
+            //    onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (_) => InfoSitestPage(
+            //           idSites: s.id!.toString(),
+            //         ),
+            //       ),
+            //     );
+            //   },
+            // ),
           ),
         );
       }

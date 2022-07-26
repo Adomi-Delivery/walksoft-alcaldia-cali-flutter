@@ -37,7 +37,7 @@ class _GeneralEventsScheduleState extends State<GeneralEventsSchedule> {
                 children: <Widget>[
                   Container(
                     width: size.width * 0.9,
-                    height: 100,
+                    // height: 100,
                     child: Padding(
                       padding: EdgeInsets.all(20),
                       child: Center(
@@ -63,7 +63,7 @@ class _GeneralEventsScheduleState extends State<GeneralEventsSchedule> {
                     ),
                   ),
                   Container(
-                    height: 350,
+                    // height: 350,
                     width: size.width * 0.9,
                     child: createCalendar(),
                   ),

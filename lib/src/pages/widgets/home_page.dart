@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           Text(
             'Programas y proyectos.',
             style: TextStyle(
-                fontSize: 20,
+                fontSize: 23,
                 color: verdePrincipal,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic),
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
           _createCardProjects(context),
           SafeArea(
             child: SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.001,
             ),
           ),
           GestureDetector(
@@ -231,7 +231,7 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      height: size.height * 0.30,
+      height: size.height * 0.46,
       child: GridView.count(
           crossAxisCount: 2,
           crossAxisSpacing: 10,
@@ -517,92 +517,92 @@ class _HomePageState extends State<HomePage> {
               )),
         ),
         SizedBox(
-          height: size.height * 0.08,
+          height: size.height * 0.05,
         ),
-        Container(
-          height: size.height * 0.60,
-          width: double.infinity,
-          child: Stack(
-            children: [
-              Container(
-                height: size.height * 0.2,
-                width: size.width * 0.44,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(13),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(
-                        'assets/Image.png',
-                      ),
-                    )),
-              ),
-              Positioned(
-                top: 1,
-                right: 1,
-                child: Container(
-                  height: size.height * 0.35,
-                  width: size.width * 0.44,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(13),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          'assets/Image1.png',
-                        ),
-                      )),
-                ),
-              ),
-              Positioned(
-                right: 1,
-                bottom: 1,
-                child: Container(
-                  height: size.height * 0.22,
-                  width: size.width * 0.44,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(13),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          'assets/Image2.png',
-                        ),
-                      )),
-                ),
-              ),
-              Positioned(
-                left: 1,
-                bottom: 1,
-                child: Container(
-                  height: size.height * 0.1,
-                  width: size.width * 0.44,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(13),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          'assets/Image3.png',
-                        ),
-                      )),
-                ),
-              ),
-              Positioned(
-                left: 1,
-                bottom: 100,
-                child: Container(
-                  height: size.height * 0.25,
-                  width: size.width * 0.44,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(13),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          'assets/Image4.png',
-                        ),
-                      )),
-                ),
-              ),
-            ],
-          ),
-        )
+        // Container(
+        //   height: size.height * 0.60,
+        //   width: double.infinity,
+        //   child: Stack(
+        //     children: [
+        //       Container(
+        //         height: size.height * 0.2,
+        //         width: size.width * 0.44,
+        //         decoration: BoxDecoration(
+        //             borderRadius: BorderRadius.circular(13),
+        //             image: DecorationImage(
+        //               fit: BoxFit.cover,
+        //               image: AssetImage(
+        //                 'assets/Image.png',
+        //               ),
+        //             )),
+        //       ),
+        //       Positioned(
+        //         top: 1,
+        //         right: 1,
+        //         child: Container(
+        //           height: size.height * 0.35,
+        //           width: size.width * 0.44,
+        //           decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(13),
+        //               image: DecorationImage(
+        //                 fit: BoxFit.cover,
+        //                 image: AssetImage(
+        //                   'assets/Image1.png',
+        //                 ),
+        //               )),
+        //         ),
+        //       ),
+        //       Positioned(
+        //         right: 1,
+        //         bottom: 1,
+        //         child: Container(
+        //           height: size.height * 0.22,
+        //           width: size.width * 0.44,
+        //           decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(13),
+        //               image: DecorationImage(
+        //                 fit: BoxFit.cover,
+        //                 image: AssetImage(
+        //                   'assets/Image2.png',
+        //                 ),
+        //               )),
+        //         ),
+        //       ),
+        //       Positioned(
+        //         left: 1,
+        //         bottom: 1,
+        //         child: Container(
+        //           height: size.height * 0.1,
+        //           width: size.width * 0.44,
+        //           decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(13),
+        //               image: DecorationImage(
+        //                 fit: BoxFit.cover,
+        //                 image: AssetImage(
+        //                   'assets/Image3.png',
+        //                 ),
+        //               )),
+        //         ),
+        //       ),
+        //       Positioned(
+        //         left: 1,
+        //         bottom: 100,
+        //         child: Container(
+        //           height: size.height * 0.25,
+        //           width: size.width * 0.44,
+        //           decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(13),
+        //               image: DecorationImage(
+        //                 fit: BoxFit.cover,
+        //                 image: AssetImage(
+        //                   'assets/Image4.png',
+        //                 ),
+        //               )),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // )
       ],
     );
   }

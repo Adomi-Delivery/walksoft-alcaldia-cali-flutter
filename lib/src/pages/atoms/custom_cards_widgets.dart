@@ -191,12 +191,12 @@ Widget configInformationSites(BuildContext context, Sites sites, Size size) {
       ),
       SizedBox(width: 10),
       Container(
-        width: size.width * 0.40,
+        width: size.width * 0.50,
         child: informacionCentralSites(sites),
       ),
-      SizedBox(width: 20),
+      // SizedBox(width: 10),
       Container(
-        width: size.width * 0.20,
+        width: size.width * 0.15,
         child: botonFinalSites(context, sites),
       ),
     ],
@@ -291,31 +291,31 @@ Widget informacionCentralSites(Sites project) {
         overflow: TextOverflow.ellipsis,
       ),
       SizedBox(height: 5),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Inicio: ',
-            style: TextStyle(fontWeight: FontWeight.bold),
+      SizedBox(
+        // width: 100,
+        child: Text(
+          project.description!,
+          maxLines: 1,
+          softWrap: true,
+          style: TextStyle(
+            overflow: TextOverflow.ellipsis,
           ),
-          Text(_startAt.toString()),
-        ],
+        ),
       ),
-      SizedBox(height: 5),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Tipo: ',
-            maxLines: 1,
-            softWrap: true,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(project.category!),
-        ],
-      ),
+      // SizedBox(height: 5),
+      // Row(
+      //   mainAxisAlignment: MainAxisAlignment.start,
+      //   crossAxisAlignment: CrossAxisAlignment.start,
+      //   children: [
+      //     Text(
+      //       'Tipo: ',
+      //       maxLines: 1,
+      //       softWrap: true,
+      //       style: TextStyle(fontWeight: FontWeight.bold),
+      //     ),
+      //     Text(project.category!),
+      //   ],
+      // ),
     ],
   );
 }
@@ -369,7 +369,7 @@ Widget botonFinalSites(BuildContext context, Sites project) {
         );
       },
       child: Container(
-        width: 50,
+        width: 60,
         height: 20,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8)),

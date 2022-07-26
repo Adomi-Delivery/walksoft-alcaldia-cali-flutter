@@ -74,26 +74,28 @@ class _SliderHomeState extends State<SliderHome> {
       onTap: () {},
       child: Stack(
         children: [
-          Container(
-            height: size.height * 0.20,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: amarilloTarjeta,
-            ),
-            child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15, bottom: 8, left: 15),
-                  child: Text(item.description!,
-                      style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
-                )),
-          ),
+          // Container(
+          //   height: size.height * 0.20,
+          //   width: double.infinity,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(20),
+          //     color: amarilloTarjeta,
+          //   ),
+          //   child: Align(
+          //       alignment: Alignment.bottomLeft,
+          //       child: Padding(
+          //         padding: const EdgeInsets.only(top: 15, bottom: 8, left: 15),
+          //         child: Text(
+          //             // item.description!,
+          //             '',
+          //             style:
+          //                 TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+          //       )),
+          // ),
           Container(
             padding: EdgeInsets.only(left: 10),
             alignment: Alignment.centerLeft,
-            height: size.height * 0.15,
+            height: size.height * 0.20,
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),

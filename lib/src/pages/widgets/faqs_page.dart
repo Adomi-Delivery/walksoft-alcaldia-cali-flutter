@@ -19,7 +19,7 @@ class _FaqsPageState extends State<FaqsPage> {
     Size size = MediaQuery.of(context).size;
     // listFaqs.clear();
     return Scaffold(
-      appBar: createAppBar(),
+      appBar: CustomAppBar(),
       body: FutureBuilder(
         future: this.chargeFaqs(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

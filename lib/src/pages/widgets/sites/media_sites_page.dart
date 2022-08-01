@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/sites.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 
-class MediaProjectPage extends StatelessWidget {
+class MediaSitesPage extends StatefulWidget {
+  const MediaSitesPage({Key? key, required this.files}) : super(key: key);
+
+  @override
+  State<MediaSitesPage> createState() => _MediaSitesPageState();
+  final List<Files> files;
+}
+
+class _MediaSitesPageState extends State<MediaSitesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,9 +19,9 @@ class MediaProjectPage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Container(
-            height: 100,
+            // height: 50,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,9 +49,7 @@ class MediaProjectPage extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              child: Center(
-                child: crearFotosMedio(),
-              ),
+              child: crearFotosMedio(),
             ),
           ),
           Container(
@@ -79,52 +86,35 @@ class MediaProjectPage extends StatelessWidget {
   }
 
   Widget crearFotosMedio() {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: Container(
-            child: Center(
-              child: Column(
-                children: [
-                  crearFoto('assets/imagen1.png'),
-                  crearFoto('assets/imagen3.png'),
-                  crearFoto('assets/imagen5.png'),
-                ],
-              ),
-            ),
-          ),
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.30,
+      child: GridView.count(
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 5,
+        children: List.generate(
+          widget.files.length,
+          (index) {
+            return crearFoto(widget.files[index].path!);
+          },
         ),
-        Expanded(
-          child: Container(
-            child: Center(
-              child: Column(
-                children: [
-                  crearFoto('assets/imagen2.png'),
-                  crearFoto('assets/imagen4.png'),
-                  crearFoto('assets/imagen6.png'),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 
   Widget crearFoto(String path) {
-    return Expanded(
-      child: Container(
-        child: Center(
-          child: Container(
-            width: 160,
-            height: 130,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(30),
-              ),
-              image: DecorationImage(
-                image: ExactAssetImage(path),
-              ),
+    return Container(
+      child: Center(
+        child: Container(
+          width: 160,
+          height: 130,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(path),
             ),
           ),
         ),

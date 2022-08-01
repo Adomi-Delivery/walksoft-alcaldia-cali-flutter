@@ -7,8 +7,8 @@ const amarilloTarjeta = Color(0xdddada00);
 const amarilocircleTarjeta = Color(0xeeeaffbb);
 const verdeBottom = Color(0xFF37B82A);
 const gris = Color(0xbbb8b8b8);
-const rosaGradiendslide = Color(0xffff43e0);
-const moradoGradiendSlide = Color(0x777a5aff);
+const rosaGradiendslide = Color(0xff30E5AE);
+const moradoGradiendSlide = Color(0xff12D3EA);
 const blancoCard = Color(0xddd1d1d1);
 const amarilloGallery = Color(0xfffce95f);
 const naranjaGallery = Color(0xfff29c1f);
@@ -25,7 +25,7 @@ class Constants {
 const listaColores = [Colors.red, Colors.blue, Colors.green, Colors.cyan];
 
 const headers = {
-  // 'Content-Type': 'application/json',
+  'Content-Type': 'application/json',
   'Accept': '*/*',
   'Accept-Encoding': 'gzip, deflate, br',
   'Connection': 'keep-alive'

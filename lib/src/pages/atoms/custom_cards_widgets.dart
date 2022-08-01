@@ -329,17 +329,19 @@ Widget informacionCentral(Project project) {
         ],
       ),
       SizedBox(height: 5),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Costo: ',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text('${formatCurrency(number: double.parse(project.costs!))}'),
-        ],
-      ),
+      project.costs == null
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Costo: ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text('${formatCurrency(number: double.parse(project.costs!))}'),
+              ],
+            )
+          : SizedBox(),
     ],
   );
 }

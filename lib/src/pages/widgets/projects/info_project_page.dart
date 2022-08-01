@@ -158,7 +158,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
             ),
             child: Center(
               child: Text(
-                'El proyecto',
+                project!.type != 'PROGRAM' ? 'El proyecto' : 'El Programa',
                 style:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -215,12 +215,16 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           SizedBox(height: 25),
           crearTexto("¿Qué es?", project!.description),
           SizedBox(height: 20),
-          crearTexto("Ubicación", project!.location),
+          project!.location == null
+              ? crearTexto("Ubicación", project!.location)
+              : SizedBox(),
           SizedBox(height: 20),
-          crearTexto(
-              "Costos",
-              formatCurrency(number: double.parse(project!.costs!)) +
-                  " es la inversión proyectada"),
+          project!.costs == null
+              ? crearTexto(
+                  "Costos",
+                  formatCurrency(number: double.parse(project!.costs!)) +
+                      " es la inversión proyectada")
+              : SizedBox(),
           SizedBox(height: 20),
           // crearTextoLista("Componentes", project!.components!),
           SizedBox(height: 20),

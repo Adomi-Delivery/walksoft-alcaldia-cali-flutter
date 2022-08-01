@@ -1,16 +1,15 @@
 import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/buttons_home.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/developmentPlan.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/featured_projects.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/model/sliders.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/custom_dialog.dart';
 
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/slider.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/slider_home.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/atoms/top_bottom_bars.dart';
-import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/maps/maps_page.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/gallery/gallery_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/notice/notice_list_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/pages/widgets/projects/info_project_page.dart';
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
@@ -23,12 +22,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<FeaturedProjects> listCardProjects = [];
+  List<ButtonsHome> listButtons = [];
   List<Sliders> listSliders = [];
   List<DevelopmentPlan> planList = [];
   @override
   void initState() {
     _loadInfoCard();
     _loadInfoSliders();
+    _loadButtons();
     super.initState();
   }
 
@@ -124,38 +125,10 @@ class _HomePageState extends State<HomePage> {
           ),
           SafeArea(
             child: SizedBox(
-              height: size.height * 0.01,
-            ),
-          ),
-          createCardNews(context),
-          SafeArea(
-            child: SizedBox(
               height: size.height * 0.03,
             ),
           ),
-          // SafeArea(
-          //   child: SizedBox(
-          //     height: size.height * 0.01,
-          //   ),
-          // ),
-          // createCardNews(context),
-          // SafeArea(
-          //   child: SizedBox(
-          //     height: size.height * 0.01,
-          //   ),
-          // ),
-          // SafeArea(
-          //   child: SizedBox(
-          //     height: size.height * 0.01,
-          //   ),
-          // ),
-          // createCardNews(context),
-          // SafeArea(
-          //   child: SizedBox(
-          //     height: size.height * 0.06,
-          //   ),
-          // ),
-          _createGallery(context),
+          listButtons.isNotEmpty ? _createButtons(context) : SizedBox(),
           SafeArea(
             child: SizedBox(
               height: size.height * 0.01,
@@ -187,8 +160,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   _createDevelopmentPlan(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return SliderHome(
       listSliders: listSliders,
     );
@@ -209,22 +180,33 @@ class _HomePageState extends State<HomePage> {
               .map((mapProjects) => new FeaturedProjects.fromJson(mapProjects))
               .toList();
         });
-
-        // List? listJsonDecode = jsonDecode(response.body.toString());
-        // if (this.mounted) {
-        //   setState(() {
-        //     listCardProjects = listJsonDecode!
-        //         .map(
-        //             (mapProjects) => new FeaturedProjects.fromJson(mapProjects))
-        //         .toList();
-        //   });
-        // }
-        // return listCardProjects;
       }
 
       return listCardProjects;
     } catch (e) {
       _loadInfoCard();
+    }
+  }
+
+  _loadButtons() async {
+    try {
+      Uri url = Uri.parse(Constants.url + 'app-button-images');
+      var response = await http.get(url);
+
+      if (this.mounted) {
+        print('_loadButtons');
+        Map<String, dynamic> map = json.decode(response.body);
+        List<dynamic> data = map["data"];
+        setState(() {
+          listButtons = data
+              .map((mapProjects) => new ButtonsHome.fromJson(mapProjects))
+              .toList();
+        });
+      }
+
+      return listButtons;
+    } catch (e) {
+      _loadButtons();
     }
   }
 
@@ -248,8 +230,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 );
-                // Navigator.pushNamed(context, 'InfoProyecto',
-                //     arguments: listCardProjects[index].id.toString());
               },
               child: Container(
                 height: size.height * 0.10,
@@ -309,306 +289,93 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  createCardNews(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => NoticeListPage(),
-            ),
-          );
-          // Navigator.pushNamed(context, 'NoticePage');
-        },
-        child: Container(
-          height: size.height * 0.11,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                spreadRadius: 2,
-                color: Colors.grey[300]!,
-                offset: Offset(1, 2),
-                blurRadius: 4.0,
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                CircleAvatar(
-                  radius: 25,
-                  backgroundColor: Colors.teal.withOpacity(0.7),
-                  child: Icon(
-                    Icons.article_rounded,
-                    color: blanco,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Noticias',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Divider(
-                        height: 5,
-                      ),
-                      Text(
-                        'Enero - 15 - 2021',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.grey[400],
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  _createGallery(BuildContext context) {
+  _createButtons(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Column(
       children: [
         GestureDetector(
-          onTap: () => Navigator.pushNamed(context, 'sites'),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => NoticeListPage(),
+            ),
+          ),
           child: Container(
-              height: size.height * 0.13,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    amarilloGallery,
-                    naranjaGallery,
-                  ],
+            height: size.height * 0.11,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  spreadRadius: 2,
+                  color: Colors.grey[300]!,
+                  offset: Offset(1, 2),
+                  blurRadius: 4.0,
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    spreadRadius: 2,
-                    color: Colors.grey[300]!,
-                    offset: Offset(1, 2),
-                    blurRadius: 4.0,
-                  ),
-                ],
+              ],
+              image: DecorationImage(
+                image: NetworkImage(listButtons[0].route!),
+                fit: BoxFit.cover,
+                // alignment: Alignment.topCenter,
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Image.asset(
-                      'assets/camera.png',
-                      height: 50,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Sitios de interés',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.lightBlue[900],
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Divider(
-                            height: 5,
-                          ),
-                          Text(
-                            'Santiago de Cali',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: blanco,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )),
+            ),
+          ),
         ),
         SizedBox(height: 20),
         GestureDetector(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(context, 'sites'),
           child: Container(
-              height: size.height * 0.13,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    amarilloGallery,
-                    naranjaGallery,
-                  ],
+            height: size.height * 0.11,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  spreadRadius: 2,
+                  color: Colors.grey[300]!,
+                  offset: Offset(1, 2),
+                  blurRadius: 4.0,
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    spreadRadius: 2,
-                    color: Colors.grey[300]!,
-                    offset: Offset(1, 2),
-                    blurRadius: 4.0,
-                  ),
-                ],
+              ],
+              image: DecorationImage(
+                image: NetworkImage(listButtons[1].route!),
+                fit: BoxFit.cover,
+                // alignment: Alignment.topCenter,
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Image.asset(
-                      'assets/camera.png',
-                      height: 50,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Galeria de Fotos',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.lightBlue[900],
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Divider(
-                            height: 5,
-                          ),
-                          Text(
-                            'Santiago de Cali',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: blanco,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+            ),
+          ),
+        ),
+        SizedBox(height: 20),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => GalleryPage(),
+              ),
+            );
+          },
+          child: Container(
+            height: size.height * 0.11,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  spreadRadius: 2,
+                  color: Colors.grey[300]!,
+                  offset: Offset(1, 2),
+                  blurRadius: 4.0,
                 ),
-              )),
+              ],
+              image: DecorationImage(
+                image: NetworkImage(listButtons[2].route!),
+                fit: BoxFit.cover,
+                // alignment: Alignment.topCenter,
+              ),
+            ),
+          ),
         ),
         SizedBox(
           height: size.height * 0.05,
         ),
-        // Container(
-        //   height: size.height * 0.60,
-        //   width: double.infinity,
-        //   child: Stack(
-        //     children: [
-        //       Container(
-        //         height: size.height * 0.2,
-        //         width: size.width * 0.44,
-        //         decoration: BoxDecoration(
-        //             borderRadius: BorderRadius.circular(13),
-        //             image: DecorationImage(
-        //               fit: BoxFit.cover,
-        //               image: AssetImage(
-        //                 'assets/Image.png',
-        //               ),
-        //             )),
-        //       ),
-        //       Positioned(
-        //         top: 1,
-        //         right: 1,
-        //         child: Container(
-        //           height: size.height * 0.35,
-        //           width: size.width * 0.44,
-        //           decoration: BoxDecoration(
-        //               borderRadius: BorderRadius.circular(13),
-        //               image: DecorationImage(
-        //                 fit: BoxFit.cover,
-        //                 image: AssetImage(
-        //                   'assets/Image1.png',
-        //                 ),
-        //               )),
-        //         ),
-        //       ),
-        //       Positioned(
-        //         right: 1,
-        //         bottom: 1,
-        //         child: Container(
-        //           height: size.height * 0.22,
-        //           width: size.width * 0.44,
-        //           decoration: BoxDecoration(
-        //               borderRadius: BorderRadius.circular(13),
-        //               image: DecorationImage(
-        //                 fit: BoxFit.cover,
-        //                 image: AssetImage(
-        //                   'assets/Image2.png',
-        //                 ),
-        //               )),
-        //         ),
-        //       ),
-        //       Positioned(
-        //         left: 1,
-        //         bottom: 1,
-        //         child: Container(
-        //           height: size.height * 0.1,
-        //           width: size.width * 0.44,
-        //           decoration: BoxDecoration(
-        //               borderRadius: BorderRadius.circular(13),
-        //               image: DecorationImage(
-        //                 fit: BoxFit.cover,
-        //                 image: AssetImage(
-        //                   'assets/Image3.png',
-        //                 ),
-        //               )),
-        //         ),
-        //       ),
-        //       Positioned(
-        //         left: 1,
-        //         bottom: 100,
-        //         child: Container(
-        //           height: size.height * 0.25,
-        //           width: size.width * 0.44,
-        //           decoration: BoxDecoration(
-        //               borderRadius: BorderRadius.circular(13),
-        //               image: DecorationImage(
-        //                 fit: BoxFit.cover,
-        //                 image: AssetImage(
-        //                   'assets/Image4.png',
-        //                 ),
-        //               )),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // )
       ],
     );
   }

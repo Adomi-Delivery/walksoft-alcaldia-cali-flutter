@@ -1,23 +1,39 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/sliders.dart';
+import 'package:http/http.dart' as http;
 import 'package:walksoft_alcaldia_cali_flutter/src/utils/constants/constants.dart';
 
 class InfoSlide extends StatefulWidget {
+  const InfoSlide({Key? key, this.listSliders}) : super(key: key);
+
   @override
   _InfoSlideState createState() => _InfoSlideState();
+  final List<Sliders>? listSliders;
 }
 
 class _InfoSlideState extends State<InfoSlide> {
   String reason = '';
   final CarouselController _controller = CarouselController();
+  List<Images>? images = [];
   bool? isShowingMainData;
-  final List<String> imgList = [
-    'Nueva Propuesta',
-    'Pague Predial',
-  ];
+
   @override
   Widget build(BuildContext context) {
-    final List<Widget> imageSliders = imgList
+    for (var i = 0; i < widget.listSliders!.length; i++) {
+      images = widget.listSliders![1].images!;
+    }
+    if (images!.isEmpty) {
+      return SizedBox();
+    } else {
+      setState(() {
+        images = widget.listSliders![1].images!;
+      });
+    }
+    List<Widget> imageSliders = images!
         .map(
           (item) => Container(
             child: Container(
@@ -42,7 +58,7 @@ class _InfoSlideState extends State<InfoSlide> {
             items: imageSliders,
             options: CarouselOptions(
               enlargeCenterPage: true,
-              aspectRatio: 16 / 5,
+              aspectRatio: 16 / 6,
               onPageChanged: onPageChange,
               autoPlay: true,
             ),
@@ -59,10 +75,10 @@ class _InfoSlideState extends State<InfoSlide> {
     });
   }
 
-  _content(BuildContext context, item) {
+  _content(BuildContext context, Images item) {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {},
+      onTap: () => launch(item.link!),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
@@ -70,16 +86,14 @@ class _InfoSlideState extends State<InfoSlide> {
         child: Column(
           children: [
             Container(
-              width: size.width * 0.85,
+              width: size.width * 0.86,
               height: 100,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
-                      Colors.green.withOpacity(0.7), BlendMode.dstOut),
-                  image: AssetImage(
-                    'assets/slide.png',
-                  ),
+                      Colors.green.withOpacity(0.4), BlendMode.dstOut),
+                  image: NetworkImage(item.image!),
                 ),
                 borderRadius: BorderRadius.circular(15.0),
                 gradient: LinearGradient(
@@ -96,36 +110,40 @@ class _InfoSlideState extends State<InfoSlide> {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                            color: Colors.white60,
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(50),
+                                bottomRight: Radius.circular(50))),
                         child: Text(
-                          item,
+                          // item.description!,
+                          '',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
+                            color: Colors.grey[900],
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
                       ),
                     ),
-                    Positioned(
-                      right: -1,
-                      top: 1,
-                      bottom: 1,
+                    Align(
+                      alignment: Alignment.centerRight,
                       child: Container(
-                        height: 80,
-                        width: 80,
+                        height: 60,
+                        width: 60,
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.white60,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 bottomLeft: Radius.circular(50))),
                         child: CircleAvatar(
-                          backgroundColor: blanco,
+                          backgroundColor: Colors.transparent,
                           child: Icon(
                             Icons.arrow_forward_rounded,
-                            color: Colors.grey[700],
+                            color: Colors.black54,
                           ),
 
                           // size: 35,

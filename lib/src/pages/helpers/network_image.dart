@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
@@ -18,8 +15,7 @@ Future<ui.Image> loadImage(String uri) async {
 
   final frame = await imageCodec.getNextFrame();
 
-  final image = await (frame.image.toByteData(format: ui.ImageByteFormat.png)
-      as FutureOr<ByteData>);
+  final image = await frame.image.toByteData(format: ui.ImageByteFormat.png);
 
-  return await decodeImageFromList(image.buffer.asUint8List());
+  return await decodeImageFromList(image!.buffer.asUint8List());
 }

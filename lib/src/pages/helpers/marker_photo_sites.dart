@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
 import 'package:walksoft_alcaldia_cali_flutter/src/model/project.dart';
+import 'package:walksoft_alcaldia_cali_flutter/src/model/sites.dart';
 
-class MarkerPhotoProject extends CustomPainter {
-  final Project p;
+class MarkerPhotoSites extends CustomPainter {
+  final Sites p;
   ui.Image image;
 
-  MarkerPhotoProject(this.p, this.image);
+  MarkerPhotoSites(this.p, this.image);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -40,5 +41,5 @@ class MarkerPhotoProject extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 
   @override
-  bool shouldRebuildSemantics(MarkerPhotoProject oldDelegate) => false;
+  bool shouldRebuildSemantics(MarkerPhotoSites oldDelegate) => false;
 }

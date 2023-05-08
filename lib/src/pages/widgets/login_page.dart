@@ -13,7 +13,7 @@ class _LoginPageState extends State<LoginPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: blancoFondo,
-      appBar: createAppBar(),
+      appBar: CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: ListView(
@@ -64,11 +64,11 @@ class _LoginPageState extends State<LoginPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Ingresar como invitado',
+                        'Ingresar',
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.black87,
@@ -90,75 +90,75 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: size.height * 0.02,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: size.width * 0.45,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: verdePrincipal,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Text(
-                          'Google',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: blanco,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        CircleAvatar(
-                          backgroundColor: blanco,
-                          child: Icon(
-                            Icons.arrow_forward_rounded,
-                            color: Colors.redAccent.shade400,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  width: size.width * 0.45,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: verdeIconosBottom,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Text(
-                          'Facebook',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        CircleAvatar(
-                          backgroundColor: blanco,
-                          child: Icon(
-                            Icons.arrow_forward_rounded,
-                            color: Colors.blue.shade800,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            )
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Container(
+            //       width: size.width * 0.45,
+            //       height: 50,
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(10),
+            //         color: verdePrincipal,
+            //       ),
+            //       child: Padding(
+            //         padding: const EdgeInsets.all(8.0),
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //           mainAxisSize: MainAxisSize.max,
+            //           children: [
+            //             Text(
+            //               'Google',
+            //               style: TextStyle(
+            //                 fontSize: 18,
+            //                 color: blanco,
+            //                 fontWeight: FontWeight.w700,
+            //               ),
+            //             ),
+            //             CircleAvatar(
+            //               backgroundColor: blanco,
+            //               child: Icon(
+            //                 Icons.arrow_forward_rounded,
+            //                 color: Colors.redAccent.shade400,
+            //               ),
+            //             )
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     Container(
+            //       width: size.width * 0.45,
+            //       height: 50,
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(10),
+            //         color: verdeIconosBottom,
+            //       ),
+            //       child: Padding(
+            //         padding: const EdgeInsets.all(8.0),
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //           mainAxisSize: MainAxisSize.max,
+            //           children: [
+            //             Text(
+            //               'Facebook',
+            //               style: TextStyle(
+            //                 fontSize: 18,
+            //                 color: Colors.white,
+            //                 fontWeight: FontWeight.w700,
+            //               ),
+            //             ),
+            //             CircleAvatar(
+            //               backgroundColor: blanco,
+            //               child: Icon(
+            //                 Icons.arrow_forward_rounded,
+            //                 color: Colors.blue.shade800,
+            //               ),
+            //             )
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // )
           ],
         ),
       ),
